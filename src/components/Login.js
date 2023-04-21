@@ -5,12 +5,15 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import {Button,Input,Alert} from '@material-tailwind/react'
 import {IoWarningOutline} from 'react-icons/io5'
-
+import { useDispatch } from "react-redux";
+import {AddUserInformation} from "../actions/App"
 
 function Login() {
+  const navigate = useNavigate()
   const [showError,setShowError] = useState(false)
   const [errorMessage,setErrorMessage] = useState('')
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+
   const onSubmit = (e) => {
    
     const email = e.target[0].value
@@ -19,7 +22,20 @@ function Login() {
     axios.post('http://localhost:8000/auth/login/',{email:email,password:password}).then(
       (response)=>{
         console.log(response.status)
-        navigate("/testing")
+        dispatch(AddUserInformation(response.data))
+        axios.post("http://localhost:8000/api/token/",
+          {email:email,password:password}
+        ).then(
+            (res)=>{
+              localStorage.setItem("access_token",res.data.access)
+              localStorage.setItem("refresh_token",res.data.refresh)
+              axios.get("http://localhost:8000/")
+
+            }
+            
+        )
+
+        navigate("/")
       }
     ).catch(error=>{
       setErrorMessage(error.message)

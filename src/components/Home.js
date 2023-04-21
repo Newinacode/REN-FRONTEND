@@ -1,8 +1,11 @@
 import Navbar from './Navbar'
 import DisplayList from './DisplayList'
 import ImagePage from './ImagePage'
-function Home() {
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
+function Home() {
+  const {user} = useSelector((state)=>state)
   return (
     <div>
 

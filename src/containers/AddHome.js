@@ -6,7 +6,11 @@ import {GrCloudUpload} from 'react-icons/gr'
 import {Card} from "@material-tailwind/react"
 import {TbCurrencyRupeeNepalese} from 'react-icons/tb'
 import {BsFillHouseAddFill} from 'react-icons/bs'
-function AddHome() {
+function AddHome(props) {
+  const property = props.property
+  const setProperty = props.setProperty
+
+
   const [areas,setAreas] = useState({
     area1:"Bigaa",
     area2:"Katha", 
@@ -15,7 +19,9 @@ function AddHome() {
   const [region,setRegion] = useState()
 
   const handleChange = (e,regionVal) => {
+    console.log(props.property)
     if(regionVal==0){ 
+      setProperty({...property,house:{...property["house"],area_formating:"TE"}})
       setRegion(true)
       setAreas({
         area1:"Bigaa",
@@ -24,6 +30,7 @@ function AddHome() {
       })
     }
     else if(regionVal==1){
+      setProperty({...property,house:{...property["house"],area_formating:"HM"}})
       setRegion(true)
       setAreas({
         area1:"Ropani",
@@ -32,7 +39,58 @@ function AddHome() {
       })
     }
   
-  console.log(areas)
+  }
+
+  const updateHandler = (e) =>{
+
+    const n = e.target.name
+    const img = props.img
+
+    if(n=="title"){
+      setProperty({...property,title:e.target.value})
+    }
+    if(n=="image"){
+      console.log(e.target.files)
+      setProperty({...property,uploaded_images:e.target.files})
+      img(e.target.file)
+    }
+    if(n=="area1"){
+        setProperty({...property,house:{...property["house"],area1:e.target.value}}) 
+    }
+    if(n=="area2"){
+      setProperty({...property,house:{...property["house"],area2:e.target.value}}) 
+  }
+  if(n=="area3"){
+    setProperty({...property,house:{...property["house"],area3:e.target.value}}) 
+} 
+if(n=="price"){
+  setProperty({...property,house:{...property["house"],price:e.target.value}}) 
+}
+if(n=="floor"){
+  setProperty({...property,house:{...property["house"],no_of_floor:e.target.value}}) 
+}
+if(n=="bedroom"){
+  setProperty({...property,house:{...property["house"],no_of_bedrooms:e.target.value}}) 
+}
+if(n=="bathroom"){
+  setProperty({...property,house:{...property["house"],no_of_bathrooms:e.target.value}}) 
+}
+
+if(n=="parking_space"){
+  setProperty({...property,house:{...property["house"],parking_area:e.target.value}}) 
+}
+
+
+
+if(n=="facing_side"){
+  setProperty({...property,house:{...property["house"],facing_side:e.target.value}}) 
+}
+
+if(n=="date"){
+  setProperty({...property,house:{...property["house"],built_date:e.target.value}}) 
+}
+
+
   }
 
   return (
@@ -41,7 +99,7 @@ function AddHome() {
         {/* year */}
     <div className="flex flex-col h-5/6 w-1/6 gap-2"> 
     <Typography variant="h6">Date</Typography>
-    <input type="date"/>
+    <input type="date" name="date" onChange={updateHandler}/>
     </div>
 
   {/* property for */}
@@ -49,7 +107,7 @@ function AddHome() {
   <div className="flex flex-col gap-2">
 
 <Typography variant="h6">Region</Typography>
-    <div className="flex justify-around w-2/6">
+    <div className="flex justify-around w-54">
 
         <Button className="" onClick={e=>{handleChange(e,"0")}}>
           <p>Terai</p>
@@ -72,9 +130,9 @@ function AddHome() {
     <Typography variant="h6">Area</Typography>
 
     <div className="flex justify-between">
-    <Input label={areas["area1"]}/>
-    <Input label={areas["area2"]}/>
-    <Input label={areas["area3"]}/>
+    <Input label={areas["area1"]} name="area1" onChange={updateHandler}/>
+    <Input label={areas["area2"]} name="area2" onChange={updateHandler}/>
+    <Input label={areas["area3"]} name="area3" onChange={updateHandler}/>
     </div>
  
     </div>
@@ -83,13 +141,13 @@ function AddHome() {
     {/* Road */}
     <div className="flex flex-col h-5/6 w-1/6 gap-2"> 
     <Typography variant="h6">Road</Typography>
-    <Input label="ft"/>
+    <Input label="ft" name="road"/>
     </div>
 
     {/* Road */}
     <div className="flex flex-col h-5/6 w-1/6 gap-2"> 
     <Typography variant="h6">Parking Space</Typography>
-    <Input label="sq.ft"/>
+    <Input label="sq.ft" name="parking_space" onChange={updateHandler}/>
     </div>
 
     
@@ -99,9 +157,9 @@ function AddHome() {
        <Typography variant="h6">House Features</Typography>
     <div className="grid grid-rows-2 grid-flow-col gap-4"> 
    
-    <Input label="Bed"/>
-    <Input label="Bedroom"/>
-    <Input label="Bathroom"/>
+    <Input label="Floor" name="floor" onChange={updateHandler}/>
+    <Input label="Bedroom" name="bedroom" onChange={updateHandler}/>
+    <Input label="Bathroom" name="bathroom" onChange={updateHandler}/>
 
     
     
@@ -149,31 +207,45 @@ function AddHome() {
     </div>
 
     <div>
-    <Button variant="gradient" className="flex items-center gap-3">
+
+      {/* <input type="file" onChange={updateHandler} name="image" multiple/> */}
+    {/* <Button variant="gradient" className="flex items-center gap-3">
         <GrCloudUpload className="h-5 w-5" color="#F7FBFC"/> Upload Images
-      </Button>
+      </Button> */}
     </div>
 
 
     <div> 
     <div className="w-72">
-      <Input label="Price" icon={<TbCurrencyRupeeNepalese/>} type="number"/>
+      <Input label="Price" icon={<TbCurrencyRupeeNepalese/>} onChange={updateHandler} type="number" name="price"/>
     </div>
     </div>
 
     <div> 
     <div className="w-72">
-      <Input label="title"/>
+      <Input label="House Direction" name="facing_side" onChange={updateHandler} />
+    </div>
+    </div>
+
+    
+
+
+
+
+
+    <div> 
+    <div className="w-72">
+      <Input label="title" name="title" onChange={updateHandler} />
     </div>
     </div>
 
     <div> 
-    <div className="w-72">
+    {/* <div className="w-72">
       <Button className="flex items-center gap-3" color='green'>
   <BsFillHouseAddFill size="2rem"/>
 <Typography variant="h6">Add</Typography>
       </Button>
-    </div>
+    </div> */}
     </div>
 
     </div>

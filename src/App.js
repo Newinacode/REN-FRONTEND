@@ -2,10 +2,11 @@ import './App.css';
 import Home from './components/Home'
 import { Routes, Route } from "react-router-dom";
 import Login from './components/Login'
-import DisplayHouse from './components/DisplayHome'
+import DisplayHouse from './containers/DisplayHome'
 import AddProperty from './components/AddProperty';
 import 'leaflet/dist/leaflet.css';
 import Testing from './components/Testing';
+import DisplayProduct from './components/DisplayProperty';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/house/:id" element={<DisplayHouse/>}/>
         <Route path='/addproperty' element={<AddProperty/>}/>
         <Route path="/testing" element={<Testing/>}/>
+        <Route path="/property/:propertyId" element={<DisplayProduct/>}/>
       </Routes>
     
     </div>
