@@ -7,7 +7,7 @@ import AddProperty from './components/AddProperty';
 import 'leaflet/dist/leaflet.css';
 import Testing from './components/Testing';
 import DisplayProduct from './components/DisplayProperty';
-
+import Protected from './components/Protected';
 
 function App() {
 
@@ -17,7 +17,9 @@ function App() {
         <Route path="/" element={<Home/>}/>
         <Route path="/Login" element={<Login/>}/>
         <Route path="/house/:id" element={<DisplayHouse/>}/>
-        <Route path='/addproperty' element={<AddProperty/>}/>
+        <Route path='/addproperty' element={
+          <Protected Component ={AddProperty}/>
+        }/>
         <Route path="/testing" element={<Testing/>}/>
         <Route path="/property/:propertyId" element={<DisplayProduct/>}/>
       </Routes>

@@ -9,7 +9,9 @@ function Home() {
   return (
     <div>
 
-    <Navbar/>   
+    <Navbar/>  
+
+    
     <ImagePage />
     <DisplayList/>
     

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useEffect,useState } from 'react'
 import axios from 'axios'
+import Home from '../assets/images/home.jpeg'
 import {Link} from 'react-router-dom'
 
 
@@ -10,7 +11,13 @@ function DisplayList() {
     useEffect(()=>{
         axios.get("http://localhost:8000/posts/").then((res)=>{
             console.log(res.data)
-        setPost(res.data)
+
+        let temp_array = []
+
+        for(let i = 0;i<8;i++){
+            temp_array.push(res.data[i])
+        }
+        setPost(temp_array)
         }
 
         )
@@ -18,20 +25,29 @@ function DisplayList() {
 
 
   return (
-    <div className="flex flex-col items-start w-full">
-        <div className="flex justify-center font-bold text-3xl">
+    <div className="flex flex-col">
+        <div className="flex justify-center font-bold text-5xl justify-items-center p-12">
         Recent Post
         </div>
-            <div class="flex justify-around">
+            <div class="flex justify-around gap-3">
                 {
                     posts.map((post)=>{
                         return (<div>
             <div class="flex justify-center">
             <div class="block p-6 rounded-lg shadow-lg bg-white max-w-sm">
-            <h5 class="text-gray-900 text-xl leading-tight font-medium mb-2">{post.title}</h5>
-            <p class="text-gray-700 text-base mb-4">
+            <h5 class="text-gray-900 text-xl leading-tight font-medium mb-2">
+                
+                {post.title.slice(0,10)}
+                {post.title.length>11?'..':''}
+                
+                </h5>
+
+                <div className=''>
+                <img src={Home}/>
+                </div>
+            {/* <p class="text-gray-700 text-base mb-4">
             {post.content}
-            </p>
+            </p> */}
 
             
             <Link to={'property/' + post.id}>

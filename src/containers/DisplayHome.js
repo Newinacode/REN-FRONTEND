@@ -13,7 +13,7 @@ import {BsBuildingAdd} from 'react-icons/bs'
 function DisplayHome(props) {
   const property = props.property
   return (
-    <div>
+    <div className="flex flex-col gap-2">
     <div className="flex gap-6">
 <div>
 <FaBed/>
@@ -79,9 +79,7 @@ function DisplayHome(props) {
 </Card>
 
 
-<Button>
-Interested
-</Button>
+
 
 
     </div>

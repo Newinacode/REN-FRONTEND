@@ -54,9 +54,6 @@ function DisplayHome(props) {
 </Card>
 
 
-<Button>
-Interested
-</Button>
 
 
     </div>
