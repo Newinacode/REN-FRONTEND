@@ -6,7 +6,7 @@ import {GrCloudUpload} from 'react-icons/gr'
 import {Card} from "@material-tailwind/react"
 import {TbCurrencyRupeeNepalese} from 'react-icons/tb'
 import {BsFillHouseAddFill} from 'react-icons/bs'
-function AddLand(props) {
+function EditLand(props) {
   const property = props.property
   const setProperty = props.setProperty
 
@@ -182,4 +182,4 @@ if(n=="content"){
   )
 }
 
-export default AddLand
+export default EditLand

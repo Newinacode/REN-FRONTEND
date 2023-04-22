@@ -17,21 +17,22 @@ function DisplayHome(props) {
     <div className="flex gap-6">
 <div>
 <FaBed/>
-{property["house"]["no_of_bedrooms"]}
+{property["no_of_bedrooms"]}
 </div>
 
 <div>
 <FaBath/>
-{property["house"]["no_of_bathrooms"]}
+{property["no_of_bathrooms"]}
 </div>
 
 <div>
 <GrSteps/>
-{property["house"]["no_of_floor"]}
+{property["no_of_floor"]}
 </div>
 <div className='flex flex-col items-center'>
 <FaParking/>
-{property["house"]["parking_area"]} sq. ft
+
+{property["parking_area"]} sq. ft
 </div>
 </div>
 
@@ -44,7 +45,7 @@ function DisplayHome(props) {
 
 <div className='flex justify-center items-center gap-2'>
 <TbCurrencyRupeeNepalese/>
-{property["house"]["price"]}
+{property["price"]}
 </div>
 
 
@@ -58,7 +59,7 @@ function DisplayHome(props) {
 
 <div className='flex justify-center items-center gap-2'>
 <GiMultiDirections></GiMultiDirections>
-{property["house"]["facing_side"]} 
+{property["facing_side"]} 
 </div>
 
 
@@ -71,7 +72,7 @@ function DisplayHome(props) {
 
 <div className='flex justify-center items-center gap-2'>
 <BsBuildingAdd></BsBuildingAdd>
-{property["house"]["built_date"]} 
+{property["built_date"]} 
 </div>
 
 

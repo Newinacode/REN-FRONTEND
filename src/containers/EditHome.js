@@ -6,7 +6,7 @@ import {GrCloudUpload} from 'react-icons/gr'
 import {Card} from "@material-tailwind/react"
 import {TbCurrencyRupeeNepalese} from 'react-icons/tb'
 import {BsFillHouseAddFill} from 'react-icons/bs'
-function AddHome(props) {
+function EditHome(props) {
   const property = props.property
   const setProperty = props.setProperty
 
@@ -106,7 +106,7 @@ if(n=="date"){
         {/* year */}
     <div className="flex flex-col h-5/6 w-1/6 gap-2"> 
     <Typography variant="h6">Date</Typography>
-    <input type="date" name="date" onChange={updateHandler}/>
+    <input type="date" name="date" onChange={updateHandler} value={property["built_date"]}/>
     </div>
 
   {/* property for */}
@@ -135,9 +135,9 @@ if(n=="date"){
     <Typography variant="h6">Area</Typography>
 
     <div className="flex justify-between">
-    <Input label={areas["area1"]} name="area1" onChange={updateHandler}/>
-    <Input label={areas["area2"]} name="area2" onChange={updateHandler}/>
-    <Input label={areas["area3"]} name="area3" onChange={updateHandler}/>
+    <Input label={areas["area1"]} name="area1" onChange={updateHandler} value={property["area1"]}/>
+    <Input label={areas["area2"]} name="area2" onChange={updateHandler} value={property["area2"]}/>
+    <Input label={areas["area3"]} name="area3" onChange={updateHandler} value={property["area3"]}/>
     </div>
  
     </div>
@@ -152,7 +152,7 @@ if(n=="date"){
     {/* Road */}
     <div className="flex flex-col h-5/6 w-1/6 gap-2"> 
     <Typography variant="h6">Parking Space</Typography>
-    <Input label="sq.ft" name="parking_space" onChange={updateHandler}/>
+    <Input label="sq.ft" name="parking_space" onChange={updateHandler} value={property["parking_space"]}/>
     </div>
 
     
@@ -162,9 +162,9 @@ if(n=="date"){
        <Typography variant="h6">House Features</Typography>
     <div className="grid grid-rows-2 grid-flow-col gap-4"> 
    
-    <Input label="Floor" name="floor" onChange={updateHandler}/>
-    <Input label="Bedroom" name="bedroom" onChange={updateHandler}/>
-    <Input label="Bathroom" name="bathroom" onChange={updateHandler}/>
+    <Input label="Floor" name="floor" onChange={updateHandler} value={property["no_of_floor"]}/>
+    <Input label="Bedroom" name="bedroom" onChange={updateHandler} value={property["no_of_bedrooms"]}/>
+    <Input label="Bathroom" name="bathroom" onChange={updateHandler} value={property["no_of_bathrooms"]}/>
 
     
     
@@ -223,13 +223,13 @@ if(n=="date"){
   <div className="flex flex-col gap-4">
   <div> 
     <div className="w-72">
-      <Input label="Price" icon={<TbCurrencyRupeeNepalese/>} onChange={updateHandler} type="number" name="price"/>
+      <Input label="Price" icon={<TbCurrencyRupeeNepalese/>} onChange={updateHandler} type="number" name="price" value={property["price"]}/>
     </div>
     </div>
 
     <div> 
     <div className="w-72">
-      <Input label="House Direction" name="facing_side" onChange={updateHandler} />
+      <Input label="House Direction" name="facing_side" onChange={updateHandler} value={property["facing_side"]} />
     </div>
     </div>
 
@@ -241,13 +241,13 @@ if(n=="date"){
 
     <div> 
     <div className="w-72">
-      <Input label="title" name="title" onChange={updateHandler} />
+      <Input label="title" name="title" onChange={updateHandler} value={property["title"]}/>
     </div>
     </div>
 
     <div> 
     <div className="w-72">
-      <Input label="content" name="content" onChange={updateHandler} />
+      <Input label="content" name="content" onChange={updateHandler} value={property["content"]} />
     </div>
     </div>
 
@@ -268,4 +268,4 @@ if(n=="date"){
   )
 }
 
-export default AddHome
+export default EditHome

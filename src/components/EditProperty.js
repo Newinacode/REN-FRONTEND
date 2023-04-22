@@ -1,7 +1,7 @@
 import Navbar from './Navbar'
 import AddHome from '../containers/AddHome'
 import AddLand from '../containers/AddLand'
-import { useState,useRef } from 'react'
+import { useState,useEffect } from 'react'
 import React from 'react'
 import {Button,Typography} from "@material-tailwind/react"
 import { MapContainer } from 'react-leaflet/MapContainer'
@@ -11,8 +11,10 @@ import osm from "../osm-providers"
 import FormData from 'form-data';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+import { Navigate,useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import EditHome from '../containers/EditHome'
+import EditLand from '../containers/EditLand'
 function AddProperty() {
   
   const {user} = useSelector((state)=>state)
@@ -20,25 +22,9 @@ function AddProperty() {
   // if(!user){
   //   return <Navigate to="/login"/>
   // }
-
+  const { propertyId } = useParams();
 
   const navigate = useNavigate()
-  const template = {
-    
-    "map": {
-        "location": "1",
-        "street": "1",
-        "city": "1",
-        "longitude": 1,
-        "latitude": 1,
-        "post": null
-    }, 
-   
-    "title": "12",
-    "content": "12",
-    "author": 1
-}
- 
 
  
     // const [center,setCenter] = useState({lat:13.084622,lng:80.248357}) 
@@ -50,7 +36,29 @@ function AddProperty() {
     const [land,setLand] = useState(false) 
     const [images,setImages] = useState()
   
+    
 
+  useEffect(()=>{
+    axios.get(`http://127.0.0.1:8000/posts/${propertyId}`).then(
+      (res)=>{
+        setProperty(res.data)
+        if(property["property_type"]=="H"){
+          setHome(true)
+          
+        }
+        else{
+          setLand(true)
+        }
+
+        if(property["purpose"]=="RT"){
+          setRent(true)
+        }
+        else{
+          setSell(true)
+        }
+      }
+    )
+  },[])
 
 
   const onSubmit = (e) =>{
@@ -72,7 +80,7 @@ function AddProperty() {
     
 
     
-    axios.post('http://127.0.0.1:8000/posts/',property, {    
+    axios.put(`http://127.0.0.1:8000/posts/${propertyId}/`,property, {    
   }).then((res)=>{
     console.log(res)  
     navigate(`/property/${res.data.id}`)
@@ -88,63 +96,44 @@ function AddProperty() {
 
     const handleHome = (event) =>{
       setHome(true)
-      setProperty({...template,house:{
-        "purpose": "RT",
-        "area_formating": "TE",
-        "area1": 1,
-        "area2": 2,
-        "area3": 3,
-        "price": 4,
-        "property_type": "H",
-        "no_of_bedrooms": 12,
-        "no_of_bathrooms": 12,
-        "no_of_floor": 12,
-        "parking_area": 12,
-        "facing_side": "NE",
-        "built_date": "2012-12-1",
-        "post": null
-    },})
+      setProperty({...property,"property_type": "H",},)
       setLand(false)
     }
 
     const handleLand = (event) =>{
       setLand(true)
-      setProperty({...template,land:{
-        "purpose": null,
-        "area_formating": null,
-        "area1": null,
-        "area2": null,
-        "area3": null,
-        "price": null,
-        "property_type": "L",
-        "post": null
-    },})
+      setProperty({...property,"property_type": "L",
+    },)
       setHome(false)
     }
 
     const handleRent = (event) =>{
+
+      setProperty({...property,"purpose":"RT"})
       setRent(true)
       setSell(false)
       
-      if(home){
-        setProperty({...property,house:{...property["house"],purpose:"SL"}})
+      // if(home){
+      //   setProperty({...property,house:{...property["house"],purpose:"SL"}})
         
-      }
-      else{
-        setProperty({...property,land:{...property["land"],purpose:"SL"}})
-      }
+      // }
+      // else{
+      //   setProperty({...property,land:{...property["land"],purpose:"SL"}})
+      // }
     }
 
     const handleSell = (event) =>{
       setSell(true)
       setRent(false)
+      setProperty({...property,"purpose":"SL"})
+
       
-      if(home){
-        setProperty({...property,house:{...property["house"],purpose:"SL"}})
-      }
-      else{
-        setProperty({...property,land:{...property["land"],purpose:"SL"}})
-      }
+      // if(home){
+      //   setProperty({...property,house:{...property["house"],purpose:"SL"}})
+      // }
+      // else{
+      //   setProperty({...property,land:{...property["land"],purpose:"SL"}})
+      // }
       
     }
 
@@ -174,8 +163,8 @@ function AddProperty() {
      <Typography variant="h6">Property Type</Typography>
   <div className="flex justify-between w-56">
 
-      <Button onClick={handleHome} variant={home?"filled":"outlined"}>Home</Button>
-      <Button onClick={handleLand} variant={land?"filled":"outlined"}>Land</Button>
+      <Button className='p-4 w-24' onClick={handleHome} variant={home?"filled":"outlined"}>Home</Button>
+      <Button className='p-4 w-24' onClick={handleLand} variant={land?"filled":"outlined"}>Land</Button>
       </div>
 
 </div>
@@ -186,10 +175,10 @@ function AddProperty() {
 <div className="flex flex-col gap-2">
 
 <Typography variant="h6">For</Typography>
-  <div className="flex justify-between w-52">
+  <div className="flex justify-between w-56">
 
-      <Button onClick={handleSell} variant={sell?"filled":"outlined"}>Sell</Button>
-      <Button onClick={handleRent} variant={rent ?"filled":"outlined"}>Rent</Button>
+      <Button className='p-4 w-24' onClick={handleSell} variant={sell?"filled":"outlined"}>Sell</Button>
+      <Button className='p-4 w-24' onClick={handleRent} variant={rent ?"filled":"outlined"}>Rent</Button>
       </div>
 
 </div>
@@ -198,13 +187,13 @@ function AddProperty() {
 
 
 {
-home?<AddHome  img={setImages} property={property} setProperty={setProperty}/>:<AddLand property={property} setProperty={setProperty}/>
+home?<EditHome  img={setImages} property={property} setProperty={setProperty}/>:<EditLand property={property} setProperty={setProperty}/>
 }
 </div>
 
 
 
-<Button type="submit">submit</Button>
+<Button className="mx-6 mb-6 mt-4" type="submit">submit</Button>
 </form>
 
 {/* map  */}
