@@ -10,6 +10,7 @@ import { Avatar
     MenuList,
     MenuItem,
     Button, } from "@material-tailwind/react";
+import {GrFormAdd} from 'react-icons/gr'
 
 function Navbar() {
     const {user} = useSelector((state)=>state)
@@ -29,7 +30,7 @@ function Navbar() {
 
         {/* for home button and  menu (buy,rent,sell)*/}
     <div className="flex flex-row p-4 justify-between  items-center w-3/12">
-        <p className="font-foundationLogo text-4xl cursor-pointer">
+        <p className="font-foundationLogo text-4xl cursor-pointer" onClick={()=>{navigate('/')}}>
             REN
         </p>
 
@@ -65,7 +66,11 @@ function Navbar() {
 
 
         user?<>
-
+                <div className="mr-4">
+                <Button variant="gradient" className="flex items-center gap-3" onClick={()=>{navigate('/addproperty')}}>
+        <GrFormAdd  className="h-5 w-5" /> List Property
+      </Button>
+                </div>
                 <Menu>
                     <MenuHandler>
                     <div className="flex gap-4">
