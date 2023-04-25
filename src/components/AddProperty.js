@@ -3,7 +3,7 @@ import AddHome from '../containers/AddHome'
 import AddLand from '../containers/AddLand'
 import { useState,useEffect } from 'react'
 import React from 'react'
-import {Button,Typography} from "@material-tailwind/react"
+import {Button,Typography,Input} from "@material-tailwind/react"
 import { MapContainer } from 'react-leaflet/MapContainer'
 import { TileLayer } from 'react-leaflet/TileLayer'
 import {Marker,Popup} from 'react-leaflet'
@@ -44,7 +44,8 @@ function AddProperty() {
     "city": "1",
     "longitude": 1,
     "latitude": 1,
-    "author": user["userState"]["id"]
+    "author": user["userState"]["id"],
+    "images":[]
 }
  
 
@@ -83,14 +84,62 @@ function AddProperty() {
     // }
     
 
-    
-    axios.post('http://127.0.0.1:8000/posts/',property, {    
-  }).then((res)=>{
+
+
+
+    const formData = new FormData()
+    formData.append('title',property["title"])
+    formData.append('content',property["content"])
+    formData.append('purpose',property["purpose"])
+    formData.append('area_formating',property["area_formating"])
+    formData.append('area1',property["area1"])
+    formData.append('area2',property["area2"])
+    formData.append('area3',property["area3"])
+    formData.append('price',property["price"])
+    formData.append('property_type',property["property_type"])
+    formData.append('no_of_bedrooms',property["no_of_bedrooms"])
+    formData.append('no_of_bathrooms',property["no_of_bathrooms"])
+    formData.append('no_of_floor',property["no_of_floor"])
+    formData.append('parking_area',property["parking_area"])
+    formData.append('facing_side',property["facing_side"])
+    formData.append('built_date',property["built_date"])
+    formData.append('location',property["location"])
+    formData.append('street',property["street"])
+    formData.append('city',property["city"])
+    formData.append('longitude',property["longitude"])
+    formData.append('latitude',property["latitude"])
+    formData.append('author',property["author"])
+    formData.append('title',property["title"])
+    // formData.append('uploaded_images',property["images"])
+    for(let i=0;i<property['images'].length;i++){
+      formData.append('uploaded_images',property['images'][i])
+    }
+
+    axios.post('http://127.0.0.1:8000/post/',formData, 
+    // {
+    //   headers: {
+    //       'Content-Type': 'multipart/form-data',
+    //   }},
+
+    {headers: {
+      'Content-Type': 'multipart/form-data'
+    },}
+      
+      ).then((res)=>{
     console.log(res)  
     navigate(`/property/${res.data.id}`)
   }).catch((error)=>{
     console.log(error.message)
   })
+
+    
+  //   axios.post('http://127.0.0.1:8000/posts/',property, {    
+  // }).then((res)=>{
+  //   console.log(res)  
+  //   navigate(`/property/${res.data.id}`)
+  // }).catch((error)=>{
+  //   console.log(error.message)
+  // })
 
     e.preventDefault(); 
     
@@ -188,10 +237,21 @@ function AddProperty() {
 </div>
 
 
+{/* Input handle */}
+<div>
+<Typography variant="h6">For</Typography>
+  <div className="flex justify-between w-56">
+      <Input type='file' multiple="multiple" onChange={(e)=>setProperty({...property,images:e.target.files})}/>
+      </div>
+
+</div>
+
+
+
 
 
 {
-home?<AddHome  img={setImages} property={property} setProperty={setProperty}/>:<AddLand property={property} setProperty={setProperty}/>
+home?<AddHome property={property} setProperty={setProperty}/>:<AddLand property={property} setProperty={setProperty}/>
 }
 </div>
 

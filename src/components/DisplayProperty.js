@@ -45,7 +45,7 @@ function DisplayProperty() {
     <Card className="flex justify-center">
 
 
-    <img className="object-contain px-10 h-96 w-10/12 pb-2" src={BackgroundImage}/>
+    <img className="object-contain px-10 h-96 w-10/12 pb-2" src={property["images"][0]["images"]}/>
     </Card>
    
 {/* body part */}
@@ -78,9 +78,6 @@ Posted by:{property["author"]}
 
 { property["property_type"]==="H"?<DisplayHome property={property}/>:<><DisplayLand property={property}/></>
 }
-
-
-
 
   {user && user["userState"]["id"]==property["author"]?
   
