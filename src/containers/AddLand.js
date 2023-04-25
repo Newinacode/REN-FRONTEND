@@ -77,6 +77,16 @@ if(n=="content"){
 }
 
 
+if(n=="facing_side"){
+  setProperty({...property,facing_side:e.target.value}) 
+}
+
+if(n=="date"){
+  setProperty({...property,built_date:e.target.value}) 
+}
+
+
+
 
 
   }
@@ -128,6 +138,14 @@ if(n=="content"){
     <Input label="ft" name="road"/>
     </div>
 
+
+        {/* year */}
+        <div className="flex flex-col h-5/6 w-1/6 gap-2"> 
+    <Typography variant="h6">Date</Typography>
+    <input type="date" name="date" onChange={updateHandler}/>
+    </div>
+
+
   
 
 
@@ -137,6 +155,12 @@ if(n=="content"){
     {/* <Button variant="gradient" className="flex items-center gap-3">
         <GrCloudUpload className="h-5 w-5" color="#F7FBFC"/> Upload Images
       </Button> */}
+    </div>
+
+    <div> 
+    <div className="w-72">
+      <Input label="House Direction" name="facing_side" onChange={updateHandler} />
+    </div>
     </div>
 
 

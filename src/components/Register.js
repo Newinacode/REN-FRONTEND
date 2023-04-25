@@ -92,7 +92,7 @@ function Register() {
       >
           Invalid credentials. Try again.
       </Alert>
-        <span class="text-sm ml-2 hover:text-blue-500 cursor-pointer">Sign in</span>
+        <span class="text-sm ml-2 hover:text-blue-500 cursor-pointer" onClick={()=>{navigate('/login')}}>Sign in</span>
         
       
       </form>

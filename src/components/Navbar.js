@@ -78,7 +78,11 @@ function Navbar() {
      <Avatar src="https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png" alt="avatar" variant="circular" />
    </div>
                     </MenuHandler>
+                    
                     <MenuList>
+                    <MenuItem disabled>{user["userState"]["name"]}</MenuItem>
+                    
+                    <hr className="my-2 border-blue-gray-50" />
                         <MenuItem>Setting</MenuItem>
                         <MenuItem onClick={handleLogout}>Logout</MenuItem>
                         

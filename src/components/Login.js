@@ -85,6 +85,8 @@ function Login() {
           Invalid credentials. Try again.
       </Alert>
         <span class="text-sm ml-2 hover:text-blue-500 cursor-pointer">Forgot Password ?</span>
+        <span class="text-sm ml-2 hover:text-blue-500 cursor-pointer" onClick={()=>{navigate('/register')}}>Register</span>
+
         
       
       </form>
