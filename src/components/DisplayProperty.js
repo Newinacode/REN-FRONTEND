@@ -14,8 +14,15 @@ import DisplayHome from '../containers/DisplayHome'
 import DisplayLand from "../containers/DisplayLand"
 import { useSelector } from 'react-redux';
 import { prototype } from 'form-data'
+import {Link} from 'react-router-dom'
+
+import { useNavigate } from 'react-router-dom';
+
+
 
 function DisplayProperty() {
+  const navigate = useNavigate()
+
   const PROPERTY_TYPE = {
     "H":"HOUSE",
     "L":"LAND"
@@ -52,7 +59,7 @@ function DisplayProperty() {
     
     </CardHeader>
     <CardBody>
-    <Chip color="teal" value={property["house"]?PROPERTY_TYPE[property["house"]["property_type"]]:PROPERTY_TYPE[property["land"]["property_type"]]} />
+    <Chip color="teal" value={property?PROPERTY_TYPE[property["property_type"]]:PROPERTY_TYPE[property["property_type"]]} />
     <Typography variant="h2">{property["title"]}</Typography>
     <Typography>
       <Typography variant="h6">Description:</Typography>
@@ -69,15 +76,21 @@ function DisplayProperty() {
 Posted by:{property["author"]}
 </Typography>
 
-{ property["house"]?<DisplayHome property={property}/>:<><DisplayLand property={property}/></>
+{ property["property_type"]==="H"?<DisplayHome property={property}/>:<><DisplayLand property={property}/></>
 }
 
 
 
 
-  {user && user["userState"]["id"]==property["author"]?<Button>
+  {user && user["userState"]["id"]==property["author"]?
+  
+
+  <Button onClick={()=>navigate(`/edit/${property["id"]}`)}>
+
   Edit
-  </Button>:<Button>
+  
+  </Button>
+  :<Button>
   Interested
   </Button>}
 

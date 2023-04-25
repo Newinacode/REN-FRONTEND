@@ -6,7 +6,7 @@ import {GrCloudUpload} from 'react-icons/gr'
 import {Card} from "@material-tailwind/react"
 import {TbCurrencyRupeeNepalese} from 'react-icons/tb'
 import {BsFillHouseAddFill} from 'react-icons/bs'
-function AddHome(props) {
+function AddLand(props) {
   const property = props.property
   const setProperty = props.setProperty
 
@@ -16,13 +16,17 @@ function AddHome(props) {
     area2:"Katha", 
     area3:"Dhur"
   })
-  const [region,setRegion] = useState()
+
+  const [terai,setTerai] = useState(false)
+  const [hillyMountain,setHillyMountain] = useState(false)
+  
 
   const handleChange = (e,regionVal) => {
     console.log(props.property)
     if(regionVal==0){ 
-      setProperty({...property,land:{...property["land"],area_formating:"TE"}})
-      setRegion(true)
+      setProperty({...property,area_formating:"TE"})
+      setTerai(true)
+      setHillyMountain(false)
       setAreas({
         area1:"Bigaa",
         area2:"Katha", 
@@ -30,8 +34,9 @@ function AddHome(props) {
       })
     }
     else if(regionVal==1){
-      setProperty({...property,land:{...property["land"],area_formating:"HM"}})
-      setRegion(true)
+      setProperty({...property,area_formating:"HM"})
+      setTerai(false)
+      setHillyMountain(true)
       setAreas({
         area1:"Ropani",
         area2:"Aana", 
@@ -55,17 +60,31 @@ function AddHome(props) {
       img(e.target.file)
     }
     if(n=="area1"){
-        setProperty({...property,land:{...property["land"],area1:e.target.value}}) 
+        setProperty({...property,area1:e.target.value}) 
     }
     if(n=="area2"){
-      setProperty({...property,land:{...property["land"],area2:e.target.value}}) 
+      setProperty({...property,area2:e.target.value}) 
   }
   if(n=="area3"){
-    setProperty({...property,land:{...property["land"],area3:e.target.value}}) 
+    setProperty({...property,area3:e.target.value}) 
 } 
 if(n=="price"){
-  setProperty({...property,land:{...property["land"],price:e.target.value}}) 
+  setProperty({...property,price:e.target.value}) 
 }
+
+if(n=="content"){
+  setProperty({...property,content:e.target.value}) 
+}
+
+
+if(n=="facing_side"){
+  setProperty({...property,facing_side:e.target.value}) 
+}
+
+if(n=="date"){
+  setProperty({...property,built_date:e.target.value}) 
+}
+
 
 
 
@@ -82,12 +101,12 @@ if(n=="price"){
   <div className="flex flex-col gap-2">
 
 <Typography variant="h6">Region</Typography>
-    <div className="flex justify-around w-54">
+    <div className="flex justify-between w-56 gap-2">
 
-        <Button className="" onClick={e=>{handleChange(e,"0")}}>
+        <Button variant={terai?"filled":"outlined"} onClick={e=>{handleChange(e,"0")}}>
           <p>Terai</p>
         </Button>
-        <Button className="" onClick={e=>{handleChange(e,"1")}}>
+        <Button variant={hillyMountain?"filled":"outlined"} onClick={e=>{handleChange(e,"1")}}>
           <p>
           Hilly and Mountain
           </p>
@@ -119,6 +138,14 @@ if(n=="price"){
     <Input label="ft" name="road"/>
     </div>
 
+
+        {/* year */}
+        <div className="flex flex-col h-5/6 w-1/6 gap-2"> 
+    <Typography variant="h6">Date</Typography>
+    <input type="date" name="date" onChange={updateHandler}/>
+    </div>
+
+
   
 
 
@@ -130,6 +157,12 @@ if(n=="price"){
       </Button> */}
     </div>
 
+    <div> 
+    <div className="w-72">
+      <Input label="House Direction" name="facing_side" onChange={updateHandler} />
+    </div>
+    </div>
+
 
     <div> 
     <div className="w-72">
@@ -137,17 +170,19 @@ if(n=="price"){
     </div>
     </div>
 
-    
-
-    
-
-
 
 
 
     <div> 
     <div className="w-72">
       <Input label="title" name="title" onChange={updateHandler} />
+    </div>
+    </div>
+
+
+    <div> 
+    <div className="w-72">
+      <Input label="content" name="content" onChange={updateHandler} />
     </div>
     </div>
 
@@ -166,4 +201,4 @@ if(n=="price"){
   )
 }
 
-export default AddHome
+export default AddLand

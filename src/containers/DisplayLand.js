@@ -10,7 +10,7 @@ import {TbCurrencyRupeeNepalese} from 'react-icons/tb'
 import {GiMultiDirections} from 'react-icons/gi'
 import {BsBuildingAdd} from 'react-icons/bs'
 
-function DisplayHome(props) {
+function DisplayLand(props) {
   const property = props.property
   return (
     <div>
@@ -25,7 +25,7 @@ function DisplayHome(props) {
 
 <div className='flex justify-center items-center gap-2'>
 <TbCurrencyRupeeNepalese/>
-{property["land"]["price"]}
+{property["price"]}
 </div>
 
 
@@ -60,4 +60,4 @@ function DisplayHome(props) {
   )
 }
 
-export default DisplayHome
+export default DisplayLand

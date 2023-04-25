@@ -3,6 +3,7 @@ import { useEffect,useState } from 'react'
 import axios from 'axios'
 import Home from '../assets/images/home.jpeg'
 import {Link} from 'react-router-dom'
+import { IoEllipseSharp } from 'react-icons/io5'
 
 
 function DisplayList() {
@@ -12,12 +13,12 @@ function DisplayList() {
         axios.get("http://localhost:8000/posts/").then((res)=>{
             console.log(res.data)
 
-        let temp_array = []
-
-        for(let i = 0;i<8;i++){
-            temp_array.push(res.data[i])
+        if(res.data.length>9){
+            setPost(res.data.slice(0,9))
         }
-        setPost(temp_array)
+        else{
+            setPost(res.data)
+        }
         }
 
         )
@@ -25,7 +26,9 @@ function DisplayList() {
 
 
   return (
-    <div className="flex flex-col">
+    <>
+    {
+        posts?<div className="flex flex-col">
         <div className="flex justify-center font-bold text-5xl justify-items-center p-12">
         Recent Post
         </div>
@@ -65,7 +68,9 @@ function DisplayList() {
                     })
                 }
             </div>
-    </div>
+    </div>:<></>
+    }
+    </>
   )
 }
 

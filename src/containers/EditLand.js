@@ -6,26 +6,27 @@ import {GrCloudUpload} from 'react-icons/gr'
 import {Card} from "@material-tailwind/react"
 import {TbCurrencyRupeeNepalese} from 'react-icons/tb'
 import {BsFillHouseAddFill} from 'react-icons/bs'
-function AddHome(props) {
+function EditLand(props) {
   const property = props.property
   const setProperty = props.setProperty
 
-  const [terai,setTerai] = useState(false)
-  const [hillyMountain,setHillyMountain] = useState(false)
+
   const [areas,setAreas] = useState({
     area1:"Bigaa",
     area2:"Katha", 
     area3:"Dhur"
   })
-  const [region,setRegion] = useState()
+
+  const [terai,setTerai] = useState(false)
+  const [hillyMountain,setHillyMountain] = useState(false)
+  
 
   const handleChange = (e,regionVal) => {
     console.log(props.property)
     if(regionVal==0){ 
+      setProperty({...property,area_formating:"TE"})
       setTerai(true)
       setHillyMountain(false)
-      setProperty({...property,area_formating:"TE"})
-      setRegion(true)
       setAreas({
         area1:"Bigaa",
         area2:"Katha", 
@@ -33,10 +34,9 @@ function AddHome(props) {
       })
     }
     else if(regionVal==1){
+      setProperty({...property,area_formating:"HM"})
       setTerai(false)
       setHillyMountain(true)
-      setProperty({...property,area_formating:"HM"})
-      setRegion(true)
       setAreas({
         area1:"Ropani",
         area2:"Aana", 
@@ -71,31 +71,12 @@ function AddHome(props) {
 if(n=="price"){
   setProperty({...property,price:e.target.value}) 
 }
-if(n=="floor"){
-  setProperty({...property,no_of_floor:e.target.value}) 
-}
-if(n=="bedroom"){
-  setProperty({...property,no_of_bedrooms:e.target.value}) 
-}
-if(n=="bathroom"){
-  setProperty({...property,no_of_bathrooms:e.target.value}) 
-}
-
-if(n=="parking_space"){
-  setProperty({...property,parking_area:e.target.value}) 
-}
 
 if(n=="content"){
   setProperty({...property,content:e.target.value}) 
 }
 
-if(n=="facing_side"){
-  setProperty({...property,facing_side:e.target.value}) 
-}
 
-if(n=="date"){
-  setProperty({...property,built_date:e.target.value}) 
-}
 
 
   }
@@ -103,19 +84,16 @@ if(n=="date"){
   return (
     <div className="flex flex-col gap-6">
 
-        {/* year */}
-    <div className="flex flex-col h-5/6 w-1/6 gap-2"> 
-    <Typography variant="h6">Date</Typography>
-    <input type="date" name="date" onChange={updateHandler}/>
-    </div>
+    
 
   {/* property for */}
+
   <div className="flex flex-col gap-2">
 
 <Typography variant="h6">Region</Typography>
     <div className="flex justify-between w-56 gap-2">
 
-        <Button  variant={terai?"filled":"outlined"} onClick={e=>{handleChange(e,"0")}}>
+        <Button variant={terai?"filled":"outlined"} onClick={e=>{handleChange(e,"0")}}>
           <p>Terai</p>
         </Button>
         <Button variant={hillyMountain?"filled":"outlined"} onClick={e=>{handleChange(e,"1")}}>
@@ -126,6 +104,7 @@ if(n=="date"){
         </div>
 
 </div>
+
 
 
 
@@ -149,67 +128,8 @@ if(n=="date"){
     <Input label="ft" name="road"/>
     </div>
 
-    {/* Road */}
-    <div className="flex flex-col h-5/6 w-1/6 gap-2"> 
-    <Typography variant="h6">Parking Space</Typography>
-    <Input label="sq.ft" name="parking_space" onChange={updateHandler}/>
-    </div>
+  
 
-    
-
-    {/* House Features */}
-    <div className="flex flex-col gap-2">
-       <Typography variant="h6">House Features</Typography>
-    <div className="grid grid-rows-2 grid-flow-col gap-4"> 
-   
-    <Input label="Floor" name="floor" onChange={updateHandler}/>
-    <Input label="Bedroom" name="bedroom" onChange={updateHandler}/>
-    <Input label="Bathroom" name="bathroom" onChange={updateHandler}/>
-
-    
-    
-    </div>
-
-    {/* <div className="grid grid-col-8 grid-flow-col gap-4 mt-4">
-
-      
-    <Card className="flex justify-center px-2">
-    
-    <GiTap className="" color="#259BC4" size="2rem"></GiTap>
-     <Typography variant="h6">Water</Typography>
-    
-     </Card>
-
-     <Card className="flex px-5">
-    
-    <GiTap className="" color="#259BC4" size="2rem"></GiTap>
-     <Typography variant="h6">Water</Typography>
-    
-     </Card>
-
-
-     <Card className="flex px-5">
-    
-    <GiTap className="" color="#259BC4" size="2rem"></GiTap>
-     <Typography variant="h6">Water</Typography>
-    
-     </Card>
-
-
-     <Card className="flex px-5">
-    
-    <GiTap className="" color="#259BC4" size="2rem"></GiTap>
-     <Typography variant="h6">Water</Typography>
-    
-     </Card>
-
-
-     
-
-
-
-
-    </div> */}
 
     <div>
 
@@ -220,18 +140,13 @@ if(n=="date"){
     </div>
 
 
-  <div className="flex flex-col gap-4">
-  <div> 
+    <div> 
     <div className="w-72">
       <Input label="Price" icon={<TbCurrencyRupeeNepalese/>} onChange={updateHandler} type="number" name="price"/>
     </div>
     </div>
 
-    <div> 
-    <div className="w-72">
-      <Input label="House Direction" name="facing_side" onChange={updateHandler} />
-    </div>
-    </div>
+    
 
     
 
@@ -245,14 +160,13 @@ if(n=="date"){
     </div>
     </div>
 
+
     <div> 
     <div className="w-72">
       <Input label="content" name="content" onChange={updateHandler} />
     </div>
     </div>
 
-
-  </div>
     <div> 
     {/* <div className="w-72">
       <Button className="flex items-center gap-3" color='green'>
@@ -264,8 +178,8 @@ if(n=="date"){
 
     </div>
     
-    </div>
+    
   )
 }
 
-export default AddHome
+export default EditLand

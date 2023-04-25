@@ -8,34 +8,36 @@ import {IoWarningOutline} from 'react-icons/io5'
 import { useDispatch } from "react-redux";
 import {AddUserInformation} from "../actions/App"
 
-function Login() {
+function Register() {
   const navigate = useNavigate()
   const [showError,setShowError] = useState(false)
   const [errorMessage,setErrorMessage] = useState('')
   const dispatch = useDispatch();
 
   const onSubmit = (e) => {
-   
-    const email = e.target[0].value
-    const password = e.target[1].value
-    console.log("working")
-    axios.post('http://localhost:8000/auth/login/',{email:email,password:password}).then(
+   const name = e.target[0].value
+    const email = e.target[1].value
+    const password = e.target[2].value
+    const mobile_number = e.target[3].value
+    
+
+    axios.post('http://localhost:8000/auth/register/',{email:email,password:password,mobile_number:mobile_number,name:name}).then(
       (response)=>{
         console.log(response.status)
-        dispatch(AddUserInformation(response.data))
-        axios.post("http://localhost:8000/api/token/",
-          {email:email,password:password}
-        ).then(
-            (res)=>{
-              localStorage.setItem("access_token",res.data.access)
-              localStorage.setItem("refresh_token",res.data.refresh)
-              axios.get("http://localhost:8000/")
+        // dispatch(AddUserInformation(response.data))
+        // axios.post("http://localhost:8000/api/token/",
+        //   {email:email,password:password}
+        // ).then(
+        //     (res)=>{
+        //       localStorage.setItem("access_token",res.data.access)
+        //       localStorage.setItem("refresh_token",res.data.refresh)
+        //       axios.get("http://localhost:8000/")
 
-            }
+        //     }
             
-        )
+        // )
 
-        navigate("/")
+        navigate("/login")
       }
     ).catch(error=>{
       setErrorMessage(error.message)
@@ -59,16 +61,22 @@ function Login() {
     </div>
     <div class="flex gap-3 w-1/2 justify-center items-center bg-white">
       <form class="bg-white" onSubmit={onSubmit}>
-        <h1 class="text-gray-800 font-bold text-2xl mb-1">Hello Again!</h1>
-        <p class="text-sm font-normal text-gray-600 mb-7">Welcome Back</p>
+        <h1 class="text-gray-800 font-bold text-2xl mb-1">Register Now!</h1>
+        <p class="text-sm font-normal text-gray-600 mb-7">One step and start browsing new properties</p>
         
         <div className="mb-3">
-        <Input label="email" error={showError}></Input>
+        <Input label="name" error={showError}></Input>
         </div>
-        <div>
+        <div className="mb-3">
+        <Input type="email" label="email" error={showError}></Input>
+        </div>
+        <div className="mb-3">
         <Input type="password" label="password" error={showError}></Input>
         </div>
-        <button type="submit" class="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2">Login</button>
+        <div className="mb-3">
+        <Input type="number" label="number" error={showError}></Input>
+        </div>
+        <button type="submit" class="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2">Register</button>
         <Alert
       show={showError}
       color="red"
@@ -84,9 +92,7 @@ function Login() {
       >
           Invalid credentials. Try again.
       </Alert>
-        <span class="text-sm ml-2 hover:text-blue-500 cursor-pointer">Forgot Password ?</span>
-        <span class="text-sm ml-2 hover:text-blue-500 cursor-pointer" onClick={()=>{navigate('/register')}}>Register</span>
-
+        <span class="text-sm ml-2 hover:text-blue-500 cursor-pointer" onClick={()=>{navigate('/login')}}>Sign in</span>
         
       
       </form>
@@ -97,4 +103,4 @@ function Login() {
   )
 }
 
-export default Login
+export default Register

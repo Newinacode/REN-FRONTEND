@@ -8,7 +8,8 @@ import 'leaflet/dist/leaflet.css';
 import Testing from './components/Testing';
 import DisplayProduct from './components/DisplayProperty';
 import Protected from './components/Protected';
-
+import EditProperty from './components/EditProperty'
+import Register from './components/Register';
 function App() {
 
   return (
@@ -21,7 +22,9 @@ function App() {
           <Protected Component ={AddProperty}/>
         }/>
         <Route path="/testing" element={<Testing/>}/>
+        <Route path="/register" element={<Register/>}/>
         <Route path="/property/:propertyId" element={<DisplayProduct/>}/>
+        <Route path="/edit/:propertyId" element={<EditProperty/>}/>
       </Routes>
     
     </div>
