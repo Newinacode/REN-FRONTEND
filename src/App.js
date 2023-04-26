@@ -10,6 +10,7 @@ import DisplayProduct from './components/DisplayProperty';
 import Protected from './components/Protected';
 import EditProperty from './components/EditProperty'
 import Register from './components/Register';
+
 function App() {
 
   return (

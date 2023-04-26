@@ -4,22 +4,22 @@ import AddLand from '../containers/AddLand'
 import { useState,useEffect } from 'react'
 import React from 'react'
 import {Button,Typography,Input} from "@material-tailwind/react"
-import { MapContainer } from 'react-leaflet/MapContainer'
-import { TileLayer } from 'react-leaflet/TileLayer'
-import {Marker,Popup} from 'react-leaflet'
-import osm from "../osm-providers"
 import FormData from 'form-data';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+
+import Map from '../utils/Map'
 function AddProperty() {
-  
+
   const {user} = useSelector((state)=>state)
   
   // if(!user){
   //   return <Navigate to="/login"/>
   // }
+
+
 
 
   const navigate = useNavigate()
@@ -82,38 +82,53 @@ function AddProperty() {
     // for(let item of uploadData){
     //   console.log(item[0],item[1])
     // }
-    
 
 
 
 
     const formData = new FormData()
-    formData.append('title',property["title"])
-    formData.append('content',property["content"])
-    formData.append('purpose',property["purpose"])
-    formData.append('area_formating',property["area_formating"])
-    formData.append('area1',property["area1"])
-    formData.append('area2',property["area2"])
-    formData.append('area3',property["area3"])
-    formData.append('price',property["price"])
-    formData.append('property_type',property["property_type"])
-    formData.append('no_of_bedrooms',property["no_of_bedrooms"])
-    formData.append('no_of_bathrooms',property["no_of_bathrooms"])
-    formData.append('no_of_floor',property["no_of_floor"])
-    formData.append('parking_area',property["parking_area"])
-    formData.append('facing_side',property["facing_side"])
-    formData.append('built_date',property["built_date"])
-    formData.append('location',property["location"])
-    formData.append('street',property["street"])
-    formData.append('city',property["city"])
-    formData.append('longitude',property["longitude"])
-    formData.append('latitude',property["latitude"])
-    formData.append('author',property["author"])
-    formData.append('title',property["title"])
-    // formData.append('uploaded_images',property["images"])
+
+
+    
+    Object.keys(property).forEach(key => {
+      
+        console.log(key,property[key])
+
+        if(key!="images"){formData.append(key,property[key])}
+      
+      
+    });
+
     for(let i=0;i<property['images'].length;i++){
       formData.append('uploaded_images',property['images'][i])
     }
+
+    // formData.append('title',property["title"])
+    // formData.append('content',property["content"])
+    // formData.append('purpose',property["purpose"])
+    // formData.append('area_formating',property["area_formating"])
+    // formData.append('area1',property["area1"])
+    // formData.append('area2',property["area2"])
+    // formData.append('area3',property["area3"])
+    // formData.append('price',property["price"])
+    // formData.append('property_type',property["property_type"])
+    // formData.append('no_of_bedrooms',property["no_of_bedrooms"])
+    // formData.append('no_of_bathrooms',property["no_of_bathrooms"])
+    // formData.append('no_of_floor',property["no_of_floor"])
+    // formData.append('parking_area',property["parking_area"])
+    // formData.append('facing_side',property["facing_side"])
+    // formData.append('built_date',property["built_date"])
+    // formData.append('location',property["location"])
+    // formData.append('street',property["street"])
+    // formData.append('city',property["city"])
+    // formData.append('longitude',property["longitude"])
+    // formData.append('latitude',property["latitude"])
+    // formData.append('author',property["author"])
+    // formData.append('title',property["title"])
+    // formData.append('uploaded_images',property["images"])
+
+
+
 
     axios.post('http://127.0.0.1:8000/post/',formData, 
     // {
@@ -132,14 +147,7 @@ function AddProperty() {
     console.log(error.message)
   })
 
-    
-  //   axios.post('http://127.0.0.1:8000/posts/',property, {    
-  // }).then((res)=>{
-  //   console.log(res)  
-  //   navigate(`/property/${res.data.id}`)
-  // }).catch((error)=>{
-  //   console.log(error.message)
-  // })
+  
 
     e.preventDefault(); 
     
@@ -166,13 +174,7 @@ function AddProperty() {
       setRent(true)
       setSell(false)
       
-      // if(home){
-      //   setProperty({...property,house:{...property["house"],purpose:"SL"}})
-        
-      // }
-      // else{
-      //   setProperty({...property,land:{...property["land"],purpose:"SL"}})
-      // }
+ 
     }
 
     const handleSell = (event) =>{
@@ -180,13 +182,7 @@ function AddProperty() {
       setRent(false)
       setProperty({...property,"purpose":"SL"})
 
-      
-      // if(home){
-      //   setProperty({...property,house:{...property["house"],purpose:"SL"}})
-      // }
-      // else{
-      //   setProperty({...property,land:{...property["land"],purpose:"SL"}})
-      // }
+    
       
     }
 
@@ -247,32 +243,17 @@ function AddProperty() {
 </div>
 
 
-
-
-
 {
 home?<AddHome property={property} setProperty={setProperty}/>:<AddLand property={property} setProperty={setProperty}/>
 }
 </div>
 
-
+{/* Map */}
+<Map/>
 
 <Button className="mx-6 mb-6 mt-4" type="submit">submit</Button>
 </form>
 
-{/* map  */}
-{/* <div>
-<MapContainer
-center={center}
-zoom={ZOOM_LEVEL}
-ref={mapRef}
->
-<TileLayer
-url={osm.url}
-attribution={osm.attribution}
-/> 
-</MapContainer>
-</div> */}
 
 </div>
 
