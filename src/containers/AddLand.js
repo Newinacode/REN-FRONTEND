@@ -101,12 +101,12 @@ if(n=="date"){
   <div className="flex flex-col gap-2">
 
 <Typography variant="h6">Region</Typography>
-    <div className="flex justify-between w-56 gap-2">
+    <div className="flex justify-between w-[280px] gap-2 bg-red-100">
 
-        <Button variant={terai?"filled":"outlined"} onClick={e=>{handleChange(e,"0")}}>
-          <p>Terai</p>
+        <Button className='w-2/3 h-[50px] mr-8' variant={terai?"filled":"outlined"} onClick={e=>{handleChange(e,"0")}} color="blue-gray">
+          <p className="pl-[-20px]">Terai</p>
         </Button>
-        <Button variant={hillyMountain?"filled":"outlined"} onClick={e=>{handleChange(e,"1")}}>
+        <Button className='w-2/3 h-[50px]' variant={hillyMountain?"filled":"outlined"} onClick={e=>{handleChange(e,"1")}} color="blue-gray">
           <p>
           Hilly and Mountain
           </p>

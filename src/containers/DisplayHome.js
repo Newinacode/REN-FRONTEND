@@ -14,7 +14,11 @@ function DisplayHome(props) {
   const property = props.property
   return (
     <div className="flex flex-col gap-2">
-    <div className="flex gap-6">
+
+
+<Card>
+  <CardBody>
+  <div className="flex justify-between flex-wrap gap-6">
 <div>
 <FaBed/>
 {property["no_of_bedrooms"]}
@@ -34,50 +38,41 @@ function DisplayHome(props) {
 
 {property["parking_area"]} sq. ft
 </div>
-</div>
 
-
-{/* price section */}
-<div className=''>
-<Card>
-<CardBody>
-
-
-<div className='flex justify-center items-center gap-2'>
-<TbCurrencyRupeeNepalese/>
-{property["price"]}
-</div>
-
-
-
-</CardBody>
-</Card>
-</div>
-
-<Card>
-<CardBody>
-
-<div className='flex justify-center items-center gap-2'>
-<GiMultiDirections></GiMultiDirections>
+<div className='flex flex-col items-center'>
+<GiMultiDirections/>
 {property["facing_side"]} 
 </div>
 
 
-</CardBody>
+</div>
+  </CardBody>
 </Card>
 
+<div>
+  <Typography>
+    Price
+  </Typography>
+<div className="flex items-center">
+<TbCurrencyRupeeNepalese/>
+<Typography variant="h4">
+  {property["price"]}
+  </Typography>
+</div>
+</div>
 
-<Card>
-<CardBody>
-
-<div className='flex justify-center items-center gap-2'>
-<BsBuildingAdd></BsBuildingAdd>
-{property["built_date"]} 
+<div>
+  <Typography>
+    Build Date
+  </Typography>
+<div className="flex items-center">
+<Typography variant="h4">
+  {property["built_date"]}
+  </Typography>
+</div>
 </div>
 
 
-</CardBody>
-</Card>
 
 
 

@@ -15,7 +15,8 @@ import DisplayLand from "../containers/DisplayLand"
 import { useSelector } from 'react-redux';
 import { prototype } from 'form-data'
 import {Link} from 'react-router-dom'
-
+import {FiMapPin} from 'react-icons/fi'
+import ImageCarousel from '../containers/ImageCarousel'
 import { useNavigate } from 'react-router-dom';
 
 
@@ -42,10 +43,10 @@ function DisplayProperty() {
     {property?<div>
     <Navbar/>
     <div className="flex flex-col justify-items-end">
-    <Card className="flex justify-center">
+    <Card className="flex justify-center items-center bg-red-100">
 
-
-    <img className="object-contain px-10 h-96 w-10/12 pb-2" src={property["images"][0]["images"]}/>
+    <ImageCarousel images={property["images"]}/>
+    {/* <img className="object-contain px-10 h-96 w-10/12 pb-2" src={property["images"][0]["images"]}/> */}
     </Card>
    
 {/* body part */}
@@ -59,6 +60,16 @@ function DisplayProperty() {
     
     </CardHeader>
     <CardBody>
+
+      <div className="flex items-center my-3 gap-2">
+      <FiMapPin/>
+      {property["location"]}
+      </div>
+      
+      
+ 
+      
+    
     <Chip color="teal" value={property?PROPERTY_TYPE[property["property_type"]]:PROPERTY_TYPE[property["property_type"]]} />
     <Typography variant="h2">{property["title"]}</Typography>
     <Typography>
@@ -70,12 +81,17 @@ function DisplayProperty() {
     </div>
 {/* side contains user information and house information */}
   <div>
-  <Card className="mt-2 w-64">
-<CardBody className="flex flex-col gap-2">
+  <div className="mt-2 w-64">
+<div className="flex flex-col gap-2">
+<div className="flex items-center gap-2">
+<Typography variant="h5">
+Owner :
+</Typography>
 <Typography>
-Posted by:{property["author"]}
+{user["userState"]["name"]}
 </Typography>
 
+</div>
 { property["property_type"]==="H"?<DisplayHome property={property}/>:<><DisplayLand property={property}/></>
 }
 
@@ -92,8 +108,8 @@ Posted by:{property["author"]}
   </Button>}
 
 
-</CardBody>
-    </Card>
+</div>
+    </div>
   </div>
 
    </div>

@@ -10,6 +10,7 @@ import DisplayProduct from './components/DisplayProperty';
 import Protected from './components/Protected';
 import EditProperty from './components/EditProperty'
 import Register from './components/Register';
+import SearchBar from './containers/SearchBar';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="/register" element={<Register/>}/>
         <Route path="/property/:propertyId" element={<DisplayProduct/>}/>
         <Route path="/edit/:propertyId" element={<EditProperty/>}/>
+        <Route path="/search" element={<SearchBar/>}/>
       </Routes>
     
     </div>

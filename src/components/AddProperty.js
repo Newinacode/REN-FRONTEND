@@ -9,7 +9,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
+import HomeIcon from '../assets/images/new-house.png'
+import LandIcon from '../assets/images/acquisition.png'
 import Map from '../utils/Map'
 function AddProperty() {
 
@@ -57,8 +58,11 @@ function AddProperty() {
     const [rent,setRent] = useState(false) 
     const [home,setHome] = useState(false);
     const [land,setLand] = useState(false) 
+    const [address,setAddress] = useState()
     const [images,setImages] = useState()
   
+
+    
     
 
   useEffect(()=>{
@@ -153,7 +157,15 @@ function AddProperty() {
     
   }
 
+  const handleAddress =(info)=>{
+    console.log(info)
+    setProperty({...property, "location":info.displayName,
+    "street":info.address.suburb,
+    "city": info.address.city,
+    "longitude": info.long,
+    "latitude": info.lat})
 
+  }
 
     const handleHome = (event) =>{
       setHome(true)
@@ -196,7 +208,7 @@ function AddProperty() {
         <Navbar/>
 
 {/* body div */}
-<div class="flex">
+<div class="flex mx-40  justify-center">
 
 
 {/* left side form */}
@@ -209,11 +221,20 @@ function AddProperty() {
 
      <div className="flex flex-col gap-2">
 
-     <Typography variant="h6">Property Type</Typography>
+<div>
+<Typography variant="h6">Property Type</Typography>
+     <Typography className="text-gray-700" variant="paragraph">inform us what type of property you have</Typography>
+</div>
   <div className="flex justify-between w-56">
 
-      <Button className='p-4 w-24' onClick={handleHome} variant={home?"filled":"outlined"}>Home</Button>
-      <Button className='p-4 w-24' onClick={handleLand} variant={land?"filled":"outlined"}>Land</Button>
+      <Button className='p-4 w-24 h-18' color="blue-gray" onClick={handleHome} variant={home?"filled":"outlined"}>
+        
+        Home
+        <img src={HomeIcon}/>
+        </Button>
+      <Button className='p-4 w-24' color="blue-gray" onClick={handleLand} variant={land?"filled":"outlined"}>Land
+      <img src={LandIcon}/>
+      </Button>
       </div>
 
 </div>
@@ -226,18 +247,23 @@ function AddProperty() {
 <Typography variant="h6">For</Typography>
   <div className="flex justify-between w-56">
 
-      <Button className='p-4 w-24' onClick={handleSell} variant={sell?"filled":"outlined"}>Sell</Button>
-      <Button className='p-4 w-24' onClick={handleRent} variant={rent ?"filled":"outlined"}>Rent</Button>
+      <Button className='p-4 w-24' color="blue-gray" onClick={handleSell} variant={sell?"filled":"outlined"}>Sell</Button>
+      <Button className='p-4 w-24'color="blue-gray" onClick={handleRent} variant={rent ?"filled":"outlined"}>Rent</Button>
       </div>
 
 </div>
 
 
+{/* image handle */}
+
+
+
+
 {/* Input handle */}
 <div>
-<Typography variant="h6">For</Typography>
+<Typography variant="h6">Images</Typography>
   <div className="flex justify-between w-56">
-      <Input type='file' multiple="multiple" onChange={(e)=>setProperty({...property,images:e.target.files})}/>
+      <Input type='file' color="blue-gray" multiple="multiple" onChange={(e)=>setProperty({...property,images:e.target.files})}/>
       </div>
 
 </div>
@@ -249,9 +275,9 @@ home?<AddHome property={property} setProperty={setProperty}/>:<AddLand property=
 </div>
 
 {/* Map */}
-<Map/>
+<Map address={address} handleAddress={handleAddress} draggable={true}/>
 
-<Button className="mx-6 mb-6 mt-4" type="submit">submit</Button>
+<Button color="blue-gray" className="mx-6 mb-6 mt-4" type="submit">submit</Button>
 </form>
 
 
