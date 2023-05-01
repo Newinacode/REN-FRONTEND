@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import {RemoveUser} from "../actions/App"
 import { useNavigate } from 'react-router-dom';
+import LogoImage from '../assets/images/objective2.png'
 import { Avatar 
     ,Menu,
     MenuHandler,
@@ -25,6 +26,20 @@ function Navbar() {
         navigate('/')
     }
   return (
+
+// new code start
+
+
+
+
+
+
+
+
+
+// new code end
+
+
         // main Navbar 
         <div className="flex flex-row justify-between">
 

@@ -10,11 +10,11 @@ function DisplayList() {
 
     const [posts,setPost] = useState([])
     useEffect(()=>{
-        axios.get("http://localhost:8000/posts/").then((res)=>{
+        axios.get("http://localhost:8000/post/").then((res)=>{
             console.log(res.data)
 
-        if(res.data.length>9){
-            setPost(res.data.slice(0,9))
+        if(res.data.length>7){
+            setPost(res.data.slice(0,7))
         }
         else{
             setPost(res.data)
@@ -45,8 +45,10 @@ function DisplayList() {
                 
                 </h5>
 
-                <div className=''>
-                <img src={Home}/>
+                <div className='flex items-center w-[100px] h-[100px]'>
+                {
+                    post.images.length>0?<img src={post.images[0]["image_url"]}/>:<img src={Home}/>
+                }
                 </div>
             {/* <p class="text-gray-700 text-base mb-4">
             {post.content}

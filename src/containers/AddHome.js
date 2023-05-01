@@ -106,7 +106,7 @@ if(n=="date"){
         {/* year */}
     <div className="flex flex-col h-5/6 w-1/6 gap-2"> 
     <Typography variant="h6">Date</Typography>
-    <input type="date" name="date" onChange={updateHandler}/>
+    <input type="date" name="date" onChange={updateHandler} color="blue-gray"/>
     </div>
 
   {/* property for */}
@@ -115,10 +115,10 @@ if(n=="date"){
 <Typography variant="h6">Region</Typography>
     <div className="flex justify-between w-56 gap-2">
 
-        <Button  variant={terai?"filled":"outlined"} onClick={e=>{handleChange(e,"0")}}>
+        <Button  variant={terai?"filled":"outlined"} onClick={e=>{handleChange(e,"0")}} color="blue-gray">
           <p>Terai</p>
         </Button>
-        <Button variant={hillyMountain?"filled":"outlined"} onClick={e=>{handleChange(e,"1")}}>
+        <Button variant={hillyMountain?"filled":"outlined"} onClick={e=>{handleChange(e,"1")}} color="blue-gray">
           <p>
           Hilly and Mountain
           </p>
@@ -135,9 +135,9 @@ if(n=="date"){
     <Typography variant="h6">Area</Typography>
 
     <div className="flex justify-between">
-    <Input label={areas["area1"]} name="area1" onChange={updateHandler}/>
-    <Input label={areas["area2"]} name="area2" onChange={updateHandler}/>
-    <Input label={areas["area3"]} name="area3" onChange={updateHandler}/>
+    <Input label={areas["area1"]} name="area1" onChange={updateHandler} color="blue-gray"/>
+    <Input label={areas["area2"]} name="area2" onChange={updateHandler} color="blue-gray"/>
+    <Input label={areas["area3"]} name="area3" onChange={updateHandler} color="blue-gray"/>
     </div>
  
     </div>
