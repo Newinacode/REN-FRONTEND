@@ -11,7 +11,8 @@ import Protected from './components/Protected';
 import EditProperty from './components/EditProperty'
 import Register from './components/Register';
 import SearchBar from './containers/SearchBar';
-
+import Result from './components/Result';
+import LandingPage from './components/LandingPage';
 function App() {
 
   return (
@@ -28,6 +29,8 @@ function App() {
         <Route path="/property/:propertyId" element={<DisplayProduct/>}/>
         <Route path="/edit/:propertyId" element={<EditProperty/>}/>
         <Route path="/search" element={<SearchBar/>}/>
+        <Route path="/result" element={<Result/>}/>
+        <Route path="/home" element={<LandingPage/>}/>
       </Routes>
     
     </div>

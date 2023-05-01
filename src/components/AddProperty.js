@@ -58,7 +58,12 @@ function AddProperty() {
     const [rent,setRent] = useState(false) 
     const [home,setHome] = useState(false);
     const [land,setLand] = useState(false) 
-    const [address,setAddress] = useState()
+    const [address,setAddress] = useState({
+      
+      lat:28.3949,
+      long:84.1240,
+      displayName:""
+    })
     const [images,setImages] = useState()
   
 

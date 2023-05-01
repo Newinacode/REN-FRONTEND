@@ -1,33 +1,147 @@
 import React from 'react'
+import { Input,Select,Option, Typography,Button} from "@material-tailwind/react";
+import {useState} from 'react'
+import axios from 'axios'
+function SearchBar(props) {
 
-function SearchBar() {
+  const setData = props.setData
+  const data = props.data
+  const [type,setType] = useState('')
+  const [bedroom,setBedroom] = useState(0)
+  const [area1,setArea1] = useState(0)
+  const [area2,setArea2] = useState(0)
+  const [area3,setArea3] = useState(0)
+  const [radius,setRadius] = useState(1)
+  const [long,setLong] = useState(84.726562500000000)
+  const [lat,setLat] = useState(28.149503211544600)
+
+  
+const onSearchFieldHandle = (e) =>{
+  setData(
+    {
+      "longitude":long,
+      "latitude":lat,
+      "radius":radius,
+      "area1":area1,
+      "area2":area2,
+      "area3":area3,
+      "type":type,
+      "bedroom":bedroom
+  }
+  )
+
+  e.preventDefault();
+}
+
+
+
+
+  const [home,setHome] = useState()
+  const [locations,setLocations] = useState([])
+  const handleSearchClick = props.handleSearchClick
+  // const setLatitude=props.setLatitude 
+  // const setLongitude=props.setLongitude 
+  // const setDisplayName=props.setDisplayName
+
+  const searchLocation = (e) =>{
+    axios.get(`https://geocode.maps.co/search?q={${e.target.value}}`).then((res)=>{
+      setLocations(res.data)
+    }).catch((error)=>{
+      console.log(error)
+    })
+  }
+
+
+  const onClickList = (e,index) =>{
+    const location = locations[index]
+
+    setLong(location["lon"])
+    setLat(location["lat"])
+    // setData({...data, "longitude":location["lon"],
+    // "latitude":location["lat"],})
+    handleSearchClick({
+      lat:location["lat"],
+      long:location["lon"],
+      displayName:location["display_name"]
+    })
+    // setLatitude(location["lat"])
+    // setLongitude(location["lon"])
+    // setDisplayName(location["display_name"])
+
+  }
   return (
     <div>
-<div class="min-h-screen bg-gray-100 flex justify-center items-center px-20">
-  <div class="space-y-10">
-    <h1 class="text-center mt-10 text-4xl font-bold"></h1>
-   
+      <form onSubmit={onSearchFieldHandle}>
+      <div className="flex justify-around p-4">
+       <div>
+       <Input variant="standard" label="" placeholder='Search Location' onChange={(e)=>searchLocation(e)} />
+       {locations?<div className={locations.length<1?"":"bg-gray-100 h-[200px] overflow-auto"}>
+       {locations.map((location,index)=>{
+        if(location.display_name.split(",").pop()==" Nepal")
+          return(
+            <li className="cursor-pointer hover:bg-gray-300" key={index} onClick={(e)=>{onClickList(e,index)}}>
+              {location.display_name}
+            </li>
+          )
+       })}
+       </div>:<></>}
 
-    <div class="flex items-center p-6 space-x-6 bg-white rounded-xl shadow-lg">
-      <div class="flex bg-gray-100 p-4 w-72 space-x-4 rounded-lg">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-        <input class="bg-gray-100 outline-none" type="text" placeholder="Article name or keyword..." />
-      </div>
-      <div class="flex py-3 px-4 rounded-lg text-gray-500 font-semibold cursor-pointer">
-        <span>All categorie</span>
 
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-        </svg>
-      </div>
-      <div class="bg-gray-800 py-3 px-5 text-white font-semibold rounded-lg hover:shadow-lg transition duration-3000 cursor-pointer">
-        <span>Search</span>
-      </div>
-    </div>
-  </div>
+       </div>
+
+       <div>
+     <Select label="Type" onChange={(e)=>{setType(e)}}>
+        <Option value="house">House</Option>
+        <Option value="land">Land</Option>
+      </Select>
+     </div>
+
+
+
+
+
+     {/* area */}
+<div>
+<div className="flex">
+     <div className="flex flex-col">
+      <div>
+     <Input variant="standard" label="" placeholder='Ropani' type="number" onChange={(e)=>{setArea1(e.target.value)}} />
+       </div>
+
+       <div>
+       <Input variant="standard" label="" placeholder='Aana' type="number" onChange={(e)=>{setArea2(e.target.value)}}/>
+       </div>
+
+       <div>
+       <Input variant="standard" label="" placeholder='Paisa' type="number" onChange={(e)=>{setArea3(e.target.value)}}/>
+       </div>
+       </div>
+     </div>
 </div>
+     
+
+       {type=="house"?<div>
+       <Select label="Bedroom" onChange={(e)=>{setBedroom(e)}}>
+        <Option value="1">1+</Option>
+        <Option value="2">2+</Option>
+        <Option value="3">3+</Option>
+        <Option value="4">4+</Option>
+        <Option value="5">5+</Option>
+      </Select>
+       </div>:<></>}
+
+       <div>
+        <Input label="radius" type="number" onChange={(e)=>{setRadius(e.target.value)}}/>
+       </div>
+
+
+
+<div>
+<Button value="submit" type="submit">Search</Button>
+
+</div>
+        </div>
+      </form>
     </div>
   )
 }

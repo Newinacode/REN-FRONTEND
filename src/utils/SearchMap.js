@@ -5,8 +5,9 @@ import houseIcon from '../assets/images/navigator.png'
 import L from "leaflet";
 import { MapContainer,TileLayer,Marker,Popup } from 'react-leaflet'
 import axios from 'axios'
-function Map(props) {
-console.log(props.address)
+function SearchMap(props) {
+  const properties = props.properties
+console.log(properties)
   const [locationDisplayName,setLocationDisplayName] = useState(()=>{if(props.address){return props.address.displayName}else{return ''}})
   const [point,setPoint] = useState( 
     ()=>{if(props.address){return [props.address.lat,props.address.long] }else{return [28.3949,84.1240]}}
@@ -41,34 +42,38 @@ url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 
 </TileLayer>
 
-<Marker  draggable={draggable} position={point} icon={customIcon}
-eventHandlers={{
-  dragend: (e) => {
+{
+  properties.map((property)=>{
+    return <Marker  draggable={draggable} position={[property.latitude,property.longitude]} icon={customIcon}
+// eventHandlers={{
+//   dragend: (e) => {
 
-    const lat = e.target._latlng.lat
-    const long = e.target._latlng.lng
-    console.log(lat,long)
+//     const lat = e.target._latlng.lat
+//     const long = e.target._latlng.lng
+//     console.log(lat,long)
     
    
-    console.log(lat,long)
-    axios.get(`https://geocode.maps.co/reverse?lat=${lat}&lon=${long}`).then((res)=>{
-    console.log(res)
-    setLocationDisplayName(res.data.display_name)
-    handleAddress({
-      lat:lat, 
-      long:long,
-      displayName:res.data.display_name,
-      address:res.data.address
-    })
-  })
+//     console.log(lat,long)
+//     axios.get(`https://geocode.maps.co/reverse?lat=${lat}&lon=${long}`).then((res)=>{
+//     console.log(res)
+//     setLocationDisplayName(res.data.display_name)
+//     handleAddress({
+//       lat:lat, 
+//       long:long,
+//       displayName:res.data.display_name,
+//       address:res.data.address
+//     })
+//   })
     
-  },
-}}
+//   },
+// }}
 >
 <Popup>
-      {locationDisplayName}
+      {property.title}
     </Popup>
 </Marker>
+  })
+}
 
 
 
@@ -83,4 +88,4 @@ eventHandlers={{
   )
 }
 
-export default Map
+export default SearchMap
