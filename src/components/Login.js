@@ -35,7 +35,7 @@ function Login() {
             
         )
 
-        navigate("/")
+        navigate("/home")
       }
     ).catch(error=>{
       setErrorMessage(error.message)
@@ -53,7 +53,7 @@ function Login() {
     <div class="flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 i justify-around items-center">
       <div>
         <h1 class="text-white font-bold text-4xl font-sans">Real Estate Nepal</h1>
-        <p class="text-white mt-1">Signin and Start Browser New Properties</p>
+        <p class="text-white mt-1">Signin and Start searching New Properties</p>
         {/* <button type="submit" class="block w-28 bg-white text-indigo-800 mt-4 py-2 rounded-2xl font-bold mb-2">Read More</button> */}
       </div>
     </div>

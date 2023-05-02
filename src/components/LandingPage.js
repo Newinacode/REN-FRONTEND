@@ -22,17 +22,13 @@ function LandingPage() {
   return (
     <div>
         <Navbar/>
-        <div className='flex flex-col justify-between'>
-                <div>
-Left side
-                    
-                </div>
+        <div className='flex justify-between'>
 {/* recent post */}
-<div className="flex gap-12 mt-14 ml-36">
+<div className="flex flex-col gap-12 mt-14 ml-36">
 {
 postList.map((post)=>{
-  return( <Card className="w-96">
-  <CardHeader color="blue" className="relative h-56">
+  return( <Card className="w-[96] h-[400px]">
+  <CardHeader color="blue" className="relative h-72">
     <img
       src={post.images[0]["images"]}
       alt="img-blur-shadow"
@@ -40,11 +36,11 @@ postList.map((post)=>{
     />
   </CardHeader>
   <CardBody className="text-center">
-    <Typography variant="h5" className="mb-2">
+    <Typography variant="h5" className="mb-2 text-left">
       {post.title}
     </Typography>
-    <Typography>
-      {post.content}
+    <Typography className="text-left">
+      {post.content.length>100?post.content.slice(0,100)+".......":post.content}
     </Typography>
   </CardBody>
   <CardFooter divider className="flex items-center justify-between py-3">
@@ -66,12 +62,12 @@ postList.map((post)=>{
 
                 </div>
 
-{/* Recommended */}
-    <div>
-    <div className="flex  justify-center items-center gap-12 mt-6">
-     <div>
-     <Typography>Recommended</Typography>
-     </div>
+
+
+
+
+{/* recent post */}
+<div className="flex flex-col gap-12 mt-14 ml-36 h-[500px] w-1/2 overflow-auto">
 {
 postList.map((post)=>{
   return( <Card className="w-96">
@@ -83,11 +79,11 @@ postList.map((post)=>{
     />
   </CardHeader>
   <CardBody className="text-center">
-    <Typography variant="h5" className="mb-2">
+    <Typography variant="h5" className="mb-2 text-left">
       {post.title}
     </Typography>
-    <Typography>
-      {post.content}
+    <Typography className="text-left">
+      {post.content.length>100?post.content.slice(0,100)+".......":post.content}
     </Typography>
   </CardBody>
   <CardFooter divider className="flex items-center justify-between py-3">
@@ -95,17 +91,23 @@ postList.map((post)=>{
   {post.price}
 
     <Typography variant="small">{post.price}</Typography>
-    <Typography variant="small" color="gray" className="flex gap-1">
-      <i className="fas fa-map-marker-alt fa-sm mt-[3px]" />
-{post.location.split(",").at(-3)}
+    <Typography variant="small" color="gray" className="flex gap-1 items-center">
+    <BiMap/>
+<Typography>{post.location.split(",").at(-3)}</Typography>
     </Typography>
   </CardFooter>
 </Card>)
 })
 }
 </div>
-    </div>
+
+
+
+
+
         </div>
+
+        
     </div>
   )
 }

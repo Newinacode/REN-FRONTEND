@@ -13,6 +13,8 @@ import Register from './components/Register';
 import SearchBar from './containers/SearchBar';
 import Result from './components/Result';
 import LandingPage from './components/LandingPage';
+import SavedProperty from './components/SavedProperty';
+import OPT from './components/OPT';
 function App() {
 
   return (
@@ -24,6 +26,9 @@ function App() {
         <Route path='/addproperty' element={
           <Protected Component ={AddProperty}/>
         }/>
+        <Route path="/saved" element={
+          <Protected Component ={SavedProperty}/>
+        }/>
         <Route path="/testing" element={<Testing/>}/>
         <Route path="/register" element={<Register/>}/>
         <Route path="/property/:propertyId" element={<DisplayProduct/>}/>
@@ -31,6 +36,7 @@ function App() {
         <Route path="/search" element={<SearchBar/>}/>
         <Route path="/result" element={<Result/>}/>
         <Route path="/home" element={<LandingPage/>}/>
+        <Route path='/verifyopt/:userId' element={<OPT/>}/>
       </Routes>
     
     </div>

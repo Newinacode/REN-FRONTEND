@@ -18,7 +18,7 @@ import {Link} from 'react-router-dom'
 import {FiMapPin} from 'react-icons/fi'
 import ImageCarousel from '../containers/ImageCarousel'
 import { useNavigate } from 'react-router-dom';
-
+import {TiHeartFullOutline} from 'react-icons/ti'
 
 
 function DisplayProperty() {
@@ -28,16 +28,40 @@ function DisplayProperty() {
     "H":"HOUSE",
     "L":"LAND"
   }
+  const [like,setLike] = useState(false)
   const {user} = useSelector((state)=>state)
   const [property,setProperty] = useState()
   const { propertyId } = useParams();
   console.log(propertyId)
   useEffect(()=>{
-     axios.get(`http://localhost:8000/posts/${propertyId}/`).then((res)=>{
+     axios.get(`http://localhost:8000/post/${propertyId}/`).then((res)=>{
       setProperty(res.data)
-      console.log(property)    
+      if(user){
+        axios.get(`http://localhost:8000/savedhome/${user["userState"].id}/${propertyId}`).then((res)=>{
+          setLike(true)
+        })  
+      }
+     
     })
   },[])
+
+
+  const handleLike = (e) =>{
+
+    if(!user["userState"]){
+      navigate('/login')
+    }
+    if(like){
+      axios.delete(`http://localhost:8000/savedhome/${user["userState"].id}/${propertyId}`).then((res)=>{
+        setLike(false)
+      }) 
+    }
+    else{
+      axios.post(`http://localhost:8000/savedhome/${user["userState"].id}/${propertyId}`).then((res)=>{
+        setLike(true)
+      }) 
+    }
+  }
   return (
     <>
     {property?<div>
@@ -61,9 +85,13 @@ function DisplayProperty() {
     </CardHeader>
     <CardBody>
 
-      <div className="flex items-center my-3 gap-2">
-      <FiMapPin/>
+      <div className="flex items-center my-3 gap-2 justify-between">
+     <div className="flex items-center my-3 gap-2">
+     <FiMapPin/>
       {property["location"]}
+     </div>
+      <TiHeartFullOutline color={like?"red":"black"} size={30} onClick={handleLike} className="cursor-grab"/>
+
       </div>
       
       
@@ -77,6 +105,8 @@ function DisplayProperty() {
    {property["content"]}
     </Typography>
     </CardBody>
+    <CardFooter>
+      </CardFooter>
     </Card>
     </div>
 {/* side contains user information and house information */}
@@ -88,7 +118,7 @@ function DisplayProperty() {
 Owner :
 </Typography>
 <Typography>
-{user["userState"]["name"]}
+{property["author"]}
 </Typography>
 
 </div>

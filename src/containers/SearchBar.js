@@ -74,7 +74,7 @@ const onSearchFieldHandle = (e) =>{
       <form onSubmit={onSearchFieldHandle}>
       <div className="flex justify-around p-4">
        <div>
-       <Input variant="standard" label="" placeholder='Search Location' onChange={(e)=>searchLocation(e)} />
+       <Input className="w-[300px]" variant="outlined" label="Search Location" placeholder='' onChange={(e)=>searchLocation(e)} />
        {locations?<div className={locations.length<1?"":"bg-gray-100 h-[200px] overflow-auto"}>
        {locations.map((location,index)=>{
         if(location.display_name.split(",").pop()==" Nepal")
@@ -101,23 +101,20 @@ const onSearchFieldHandle = (e) =>{
 
 
      {/* area */}
-<div>
-<div className="flex">
-     <div className="flex flex-col">
-      <div>
-     <Input variant="standard" label="" placeholder='Ropani' type="number" onChange={(e)=>{setArea1(e.target.value)}} />
+     <div className="flex flex-row gap-2">
+      <div className="">
+     <Input variant="outlined" label="" placeholder='Ropani' type="number" onChange={(e)=>{setArea1(e.target.value)}} />
        </div>
 
-       <div>
-       <Input variant="standard" label="" placeholder='Aana' type="number" onChange={(e)=>{setArea2(e.target.value)}}/>
+       <div className=''>
+       <Input  variant="outlined" label="" placeholder='Aana' type="number" onChange={(e)=>{setArea2(e.target.value)}}/>
        </div>
 
-       <div>
-       <Input variant="standard" label="" placeholder='Paisa' type="number" onChange={(e)=>{setArea3(e.target.value)}}/>
+       <div className=''>
+       <Input  className='' variant="outlined" label="" placeholder='Paisa' type="number" onChange={(e)=>{setArea3(e.target.value)}}/>
        </div>
        </div>
-     </div>
-</div>
+   
      
 
        {type=="house"?<div>

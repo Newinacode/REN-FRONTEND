@@ -23,7 +23,8 @@ function Register() {
 
     axios.post('http://localhost:8000/auth/register/',{email:email,password:password,mobile_number:mobile_number,name:name}).then(
       (response)=>{
-        console.log(response.status)
+        console.log(response.data)
+       axios.get(`http://localhost:8000/auth/sendopt/${response.data.id}`)
         // dispatch(AddUserInformation(response.data))
         // axios.post("http://localhost:8000/api/token/",
         //   {email:email,password:password}
@@ -37,7 +38,8 @@ function Register() {
             
         // )
 
-        navigate("/login")
+
+        navigate(`/verifyopt/${response.data.id}`,    { state: { email:response.data.email} }        )
       }
     ).catch(error=>{
       setErrorMessage(error.message)
