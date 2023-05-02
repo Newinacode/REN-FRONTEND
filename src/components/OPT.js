@@ -14,7 +14,7 @@ function OPT() {
 
     const navigate = useNavigate()
 
-    const email = state.email
+    const email = "rupeshacharya2000@gmail.com"
     const [optValue,setOptValue] = useState()
 
     const handleSubmit = (e) =>{
@@ -31,18 +31,25 @@ function OPT() {
   return (
     <div>
         <Navbar/>
-        <form onSubmit={handleSubmit}>
-            <div className="flex ">
+       <div className='flex justify-center items-center w-screen h-screen h-[400px] bg-green-100'>
+       <form onSubmit={handleSubmit} className="">
+            <div className="flex flex-col justify-around items-center h-[300px] w-[400px] bg-red-100">
                 <div>
-                    <Typography>OTP is send in your email:{email}</Typography>
+                    <Typography variant="h6">OTP is send in your email:{email}</Typography>
                 </div>
+            
             <div>
-            <Typography>Enter OPT</Typography>
+            <Typography variant="h5">Enter OPT</Typography>
+            </div>
+            <div>
+            
             <Input onChange={(e)=>{setOptValue(e.target.value)}}/>
             </div>
-            </div>
             <Button value='submit' type="submit">Submit</Button>
+            </div>
+            
         </form>
+       </div>
 
 
     </div>
