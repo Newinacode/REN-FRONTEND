@@ -44,7 +44,10 @@ url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 
 {
   properties.map((property)=>{
-    return <Marker  draggable={draggable} position={[property.latitude,property.longitude]} icon={customIcon}
+if(property.longitude){
+
+      return <Marker  draggable={draggable} position={[property.longitude,property.latitude]} icon={customIcon}
+    
 // eventHandlers={{
 //   dragend: (e) => {
 
@@ -72,6 +75,7 @@ url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       {property.title}
     </Popup>
 </Marker>
+  }
   })
 }
 

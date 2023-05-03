@@ -9,11 +9,14 @@ function SearchResult(props) {
   const setProperties = props.setProperties
   const data = props.data
   useEffect(()=>{
+    console.log(data)
     axios.post("http://localhost:8000/post/search/",data).then((res)=>{
+      console.log(res.data)
       setPostList(res.data)
       setProperties(res.data)
-      console.log(res.data)
-    })
+      console.log("data",postList)
+console.log('got here sathi')   
+ }).catch((e)=>{console.log(e)})
   },[data])
  
   const address = props.address
@@ -29,11 +32,16 @@ function SearchResult(props) {
 postList.map((post)=>{
 return( <Card className="w-96">
 <CardHeader color="blue" className="relative h-56">
-<img
-  src={post.images[0]["images"]}
-  alt="img-blur-shadow"
-  className="h-full w-full"
-/>
+
+  {
+    post.images.length>0?<img
+    src={post.images[0]["images"]}
+    alt="img-blur-shadow"
+    className="h-full w-full"
+  />:
+  <></>
+  }
+
 </CardHeader>
 <CardBody className="text-center">
 <Typography variant="h5" className="mb-2">
