@@ -40,6 +40,11 @@ function DisplayProperty() {
         axios.get(`http://localhost:8000/savedhome/${user["userState"].id}/${propertyId}`).then((res)=>{
           setLike(true)
         })  
+      
+
+        axios.post("http://localhost:8000/addrecommendation/",{user:user["userState"].id,post:propertyId}).then((res)=>{
+          console.log("recommendation added")
+        })
       }
      
     })
@@ -67,7 +72,7 @@ function DisplayProperty() {
     {property?<div>
     <Navbar/>
     <div className="flex flex-col justify-items-end">
-    <Card className="flex justify-center items-center bg-red-100">
+    <Card className="flex justify-center items-center ">
 
     <ImageCarousel images={property["images"]}/>
     {/* <img className="object-contain px-10 h-96 w-10/12 pb-2" src={property["images"][0]["images"]}/> */}

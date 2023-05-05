@@ -5,7 +5,6 @@ import {TbCurrencyRupeeNepalese} from 'react-icons/tb'
 import {BiMap} from 'react-icons/bi'
 import axios from 'axios'
 function SearchResult(props) {
-  console.log("serach result is called")
   const setProperties = props.setProperties
   const data = props.data
   useEffect(()=>{
@@ -70,4 +69,4 @@ return( <Card className="w-96">
   )
 }
 
-export default SearchResult
+export default SearchResult 

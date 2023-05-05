@@ -13,22 +13,15 @@ function SavedProperty() {
   let newVal = []
   const [posts,setPost] = useState([])
     useEffect(()=>{
-        axios.get(`http://localhost:8000/savedhome/${user["userState"].id}`).then((res)=>{
+        if(user){
+          axios.get(`http://localhost:8000/savedhome/${user["userState"].id}`).then((res)=>{
           
 
-        for(let i=0;i<res.data.length;i++){
-          axios.get(`http://localhost:8000/post/${res.data[i].post}`
-            
-            ).then(
-              (response)=>{
-                setPost([...posts,response.data])
-              }
-            )
-
-        }
+        setPost(res.data)
             
     }
         )
+        }
     },[])
 
 

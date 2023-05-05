@@ -1,12 +1,14 @@
 import React from 'react'
-// import Navbar from './Navbar'
+import { useSelector } from 'react-redux';
 import Navbar from './Navbar'
 import axios from 'axios'
 import {useState,useEffect} from 'react'
 import {Card,CardBody,CardHeader,Typography,CardFooter} from '@material-tailwind/react'
 import {TbCurrencyRupeeNepalese} from 'react-icons/tb'
 import {BiMap} from 'react-icons/bi'
+import HomeImage from '../assets/images/home.jpeg'
 function LandingPage() {
+  const {user} = useSelector((state)=>state)
 
   useEffect(() => {
     
@@ -14,23 +16,28 @@ function LandingPage() {
       console.log(res.data)
       setPostList(res.data)
     })
+
+    axios.get(`http://localhost:8000/recommendation/${user["userState"]["id"]}`).then((res)=>{
+      setRecommendations(res.data)
+    })
   
     
   }, [])
-  
+  const [recommendations,setRecommendations] = useState([])
   const [postList,setPostList] = useState([])
   return (
-    <div>
+    <div className="relative">
         <Navbar/>
         <div className='flex justify-between'>
 {/* recent post */}
-<div className="flex flex-col gap-12 mt-14 ml-36">
+<div className="flex flex-col gap-12 mt-14 ml-36 mr-10">
 {
 postList.map((post)=>{
-  return( <Card className="w-[96] h-[400px]">
+  return( <Card className="w-4/6 h-[400px]">
   <CardHeader color="blue" className="relative h-72">
     <img
-      src={post.images[0]["images"]}
+      // src={post.images[0]["images"]}
+      src ={HomeImage}
       alt="img-blur-shadow"
       className="h-full w-full"
     />
@@ -59,21 +66,22 @@ postList.map((post)=>{
 </div>
 
                 <div>
-
                 </div>
 
 
 
 
 
-{/* recent post */}
-<div className="flex flex-col gap-12 mt-14 ml-36 h-[500px] w-1/2 overflow-auto">
+<div className="fixed top-10 left-[1050px] right-0 flex flex-col gap-12 mt-14 h-[670px] w-2/6 overflow-auto  items-center">
+<Typography variant="h5">Recommendation List</Typography>
 {
-postList.map((post)=>{
+recommendations.map((post)=>{
   return( <Card className="w-96">
   <CardHeader color="blue" className="relative h-56">
     <img
-      src={post.images[0]["images"]}
+      // src={post.images[0]["images"]}
+      src ={HomeImage}
+
       alt="img-blur-shadow"
       className="h-full w-full"
     />
@@ -113,3 +121,6 @@ postList.map((post)=>{
 }
 
 export default LandingPage
+
+
+

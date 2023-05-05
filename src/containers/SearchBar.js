@@ -144,3 +144,7 @@ const onSearchFieldHandle = (e) =>{
 }
 
 export default SearchBar
+
+
+
+
