@@ -20,7 +20,7 @@ function OPT() {
     const handleSubmit = (e) =>{
         axios.post(`http://localhost:8000/auth/verifyopt/${userId}`,{otp:optValue}).then(
             (res)=>{
-                navigate('/home')
+                navigate('/login')
             }
         )
 
