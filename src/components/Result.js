@@ -22,6 +22,8 @@ function Result() {
     "bedroom":0
 })
 
+
+
   const handleSearchClick = (address)=>{
     handleAddress(address)
   }
@@ -36,11 +38,11 @@ function Result() {
         <Navbar/>
 {/* side result bar */}
 {/* <SearchBar setLatitude={setLatitude} setLongitude={setLongitude} setDisplayName={setDisplayName}/> */}
-      <SearchBar handleSearchClick={handleSearchClick} setData={setData} data={data}/>
+      <SearchBar handleSearchClick={handleSearchClick} setData={setData} data={data} address={address} handleAddress={handleAddress}/>
         <div className="flex justify-center">
         
         <div>
-        <SearchResult setProperties={setProperties} data={data} />
+        <SearchResult setProperties={setProperties} data={data} address={address}/>
         </div>
     
         <div className="w-2/3 h-1/3">

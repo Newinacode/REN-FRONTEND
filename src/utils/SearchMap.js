@@ -2,6 +2,7 @@ import React from 'react'
 import {useState} from 'react'
 import { Icon } from 'leaflet'
 import houseIcon from '../assets/images/navigator.png'
+import PinIcon from '../assets/images/icon.png'
 import L from "leaflet";
 import { MapContainer,TileLayer,Marker,Popup } from 'react-leaflet'
 import axios from 'axios'
@@ -14,10 +15,23 @@ console.log(properties)
     )
   const draggable = props.draggable
   const handleAddress = props.handleAddress
-
-
+  
+var address = {
+  lat:28.3949,long:84.1240
+}
+if(props.address){
+  address = props.address
+}
     const customIcon = new Icon(
         { iconUrl:houseIcon,
+         iconSize:[38,38],
+         iconAnchor: [12, 41]
+       }
+       )
+
+
+       const customPinIcon = new Icon(
+        { iconUrl:PinIcon,
          iconSize:[38,38],
          iconAnchor: [12, 41]
        }
@@ -41,6 +55,7 @@ url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 
 
 </TileLayer>
+<Marker position={[address.lat,address.long]} icon={customPinIcon}></Marker>
 
 {
   properties.map((property)=>{

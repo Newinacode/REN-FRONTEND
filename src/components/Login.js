@@ -18,11 +18,17 @@ function Login() {
    
     const email = e.target[0].value
     const password = e.target[1].value
-    console.log("working")
+    console.log("")
     axios.post('http://localhost:8000/auth/login/',{email:email,password:password}).then(
       (response)=>{
-        console.log(response.status)
-        dispatch(AddUserInformation(response.data))
+        console.log(response)
+        console.log(response.data.is_verified)
+        if(!response.data.is_verified){
+          console.log("going inside")
+          navigate(`/verifyopt/${response.data.id}`)
+        }
+        else{
+          dispatch(AddUserInformation(response.data))
         axios.post("http://localhost:8000/api/token/",
           {email:email,password:password}
         ).then(
@@ -36,6 +42,7 @@ function Login() {
         )
 
         navigate("/home")
+        }
       }
     ).catch(error=>{
       setErrorMessage(error.message)

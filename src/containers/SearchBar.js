@@ -6,6 +6,8 @@ function SearchBar(props) {
 
   const setData = props.setData
   const data = props.data
+  const address = props.address
+  const handleAddress = props.handleAddress
   const [type,setType] = useState('')
   const [bedroom,setBedroom] = useState(0)
   const [area1,setArea1] = useState(0)
