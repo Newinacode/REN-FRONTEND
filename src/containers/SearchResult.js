@@ -78,8 +78,11 @@ import { Card, CardBody, CardHeader, Typography, CardFooter } from '@material-ta
 import { TbCurrencyRupeeNepalese } from 'react-icons/tb';
 import { BiMap } from 'react-icons/bi';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 function SearchResult(props) {
+  const navigate = useNavigate()
   const [postList, setPostList] = useState([]);
   const [page, setPage] = useState(1);
   const { data, setProperties } = props;
@@ -148,7 +151,7 @@ function SearchResult(props) {
       <div className="flex flex-col items-center h-[800px] overflow-auto">
         <div className="flex flex-col gap-12 mt-14">
           {postList.map((post, index) => (
-            <Card key={index} className="w-96">
+            <Card key={index} className="w-96" onClick={()=>navigate(`/property/${post.id}`)}>
               <CardHeader color="blue" className="relative h-56">
                 {post.images.length > 0 ? (
                   <img src={post.images[0]['images']} alt="img-blur-shadow" className="h-full w-full" />

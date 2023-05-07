@@ -6,8 +6,8 @@ import {Link} from 'react-router-dom'
 import { IoEllipseSharp } from 'react-icons/io5'
 
 
-function DisplayList() {
 
+function DisplayList() {
     const [posts,setPost] = useState([])
     useEffect(()=>{
         axios.get("http://localhost:8000/post/").then((res)=>{
@@ -28,7 +28,8 @@ function DisplayList() {
   return (
     <>
     {
-        posts?<div className="flex flex-col">
+        posts?
+        <div className="flex flex-col">
         <div className="flex justify-center font-bold text-5xl justify-items-center p-12">
         Recent Post
         </div>
@@ -70,7 +71,10 @@ function DisplayList() {
                     })
                 }
             </div>
-    </div>:<></>
+    </div>
+    
+    :
+    <></>
     }
     </>
   )
