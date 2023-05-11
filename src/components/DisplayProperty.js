@@ -4,7 +4,7 @@ import {useEffect,useState} from 'react'
 import axios from 'axios'
 import {useParams} from "react-router-dom"
 import BackgroundImage from '../assets/images/home.jpeg'
-import {Typography,Card,CardHeader,CardBody,CardFooter,Button,Chip} from "@material-tailwind/react"
+import {Typography,Card,CardHeader,CardBody,CardFooter,Button,Chip,Carouselsour} from "@material-tailwind/react"
 import {FaBed,FaParking,FaBath} from 'react-icons/fa'
 import {GrSteps} from 'react-icons/gr'
 import {TbCurrencyRupeeNepalese} from 'react-icons/tb'
@@ -19,6 +19,7 @@ import {FiMapPin} from 'react-icons/fi'
 import ImageCarousel from '../containers/ImageCarousel'
 import { useNavigate } from 'react-router-dom';
 import {TiHeartFullOutline} from 'react-icons/ti'
+
 
 
 function DisplayProperty() {
@@ -38,13 +39,20 @@ function DisplayProperty() {
       setProperty(res.data)
       if(user){
         axios.get(`http://localhost:8000/savedhome/${user["userState"].id}/${propertyId}`).then((res)=>{
-          setLike(true)
+          if(res.status==200){
+            setLike(true)
+          }
+          else if(res.status==204){
+            setLike(false)
+          }
         })  
       
 
-        axios.post("http://localhost:8000/addrecommendation/",{user:user["userState"].id,post:propertyId}).then((res)=>{
-          console.log("recommendation added")
-        })
+       
+          axios.post("http://localhost:8000/addrecommendation/",{user:user["userState"].id,post:propertyId}).then((res)=>{
+            console.log("recommendation added")
+          })
+        
       }
      
     })
@@ -70,6 +78,14 @@ function DisplayProperty() {
   return (
     <>
     {property?<div>
+
+      {/* <Carousel> */}
+{/* <img
+        src={property["images"][0]}
+        alt="image 3"
+        className="h-full w-full object-cover"
+      /> */}
+{/* </Carousel> */}
     <Navbar/>
     <div className="flex flex-col justify-items-end">
     <Card className="flex justify-center items-center ">

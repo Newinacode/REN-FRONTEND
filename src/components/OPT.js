@@ -14,7 +14,7 @@ function OPT() {
 
     const navigate = useNavigate()
 
-    const email = "rupeshacharya2000@gmail.com"
+    const email = state.email
     const [optValue,setOptValue] = useState()
 
     const handleSubmit = (e) =>{
